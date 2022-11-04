@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="5.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DEVUXC_HFT_2022231.Models\DEVUXC_HFT_2022231.Models.csproj" />
     <ProjectReference Include="..\DEVUXC_HFT_2022231.Repository\DEVUXC_HFT_2022231.Repository.csproj" />
   </ItemGroup>
