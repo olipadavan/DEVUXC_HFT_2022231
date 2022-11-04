@@ -3,31 +3,42 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Models
 {
+    [Table("races")]
     public class Race : Entity
     {
-        public Race(int id, IEnumerable<Driver> drivers, IEnumerable<Driver> qualifyingResult, 
-            IEnumerable<Driver> raceResult, DateTime raceDate, string circuitName)
-        {
-            Id =id;
-            Drivers = drivers;
-            QualifyingResult = qualifyingResult;
-            RaceResult = raceResult;
-            RaceDate = raceDate;
-            CircuitName = circuitName;
-        }
-
         [Key]
         public override int Id { get; set; }
-        public IEnumerable<Driver> Drivers { get; set; }
-        public IEnumerable<Driver> QualifyingResult { get; set; }
-        public IEnumerable<Driver> RaceResult { get; set; }
+        [NotMapped]
+        public virtual ICollection<Driver> Drivers { get; set; }
+        public int[] RaceResult { get; set; }
         public DateTime RaceDate { get; set; }
-        public string CircuitName { get; set; }
+        public string Country { get; set; }
+        [ForeignKey(nameof(Season))]
+        public int SeasonId { get; set; }
+        [NotMapped]
+        public virtual Season Season { get; set; }
+        public Race()
+        {
+            this.Drivers = new HashSet<Driver>();
+        }
 
+        public Race(int id, ICollection<Driver> drivers,
+            int[] raceResult, DateTime raceDate, string country, int seasonId, 
+            Season season)
+        {
+            Id = id;
+            Drivers = drivers;
+            RaceResult = raceResult;
+            RaceDate = raceDate;
+            Country = country;
+            SeasonId = seasonId;
+            Season = season;
+        }
     }
 }

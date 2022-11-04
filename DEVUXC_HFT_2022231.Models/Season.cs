@@ -8,20 +8,21 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Models
 {
-    public class Season
+    [Table("seasons")]
+    public class Season : Entity
     {
-        public Season(int seasonYear, IEnumerable<Race> races, IEnumerable<Driver> drivers, IEnumerable<int> standing)
+        public Season(int seasonYear)
         {
-            Id = seasonYear;
-            Races = races;
-            Drivers = drivers;
-            Standing = standing;
+            SeasonYear = seasonYear;
+            Races = new HashSet<Race>();
+            Drivers = new HashSet<Driver>();
+            Standing = new double[Drivers.Count, 2];
         }
 
         [Key]
-        public int Id { get; set; }
-        public IEnumerable<Race> Races { get; set; }
-        public IEnumerable<Driver> Drivers { get; set; }
-        public IEnumerable<int> Standing { get; set; }
+        public int SeasonYear { get; set; }
+        public virtual ICollection<Race> Races { get; set; }
+        public ICollection<Driver> Drivers { get; set; }
+        public double[,] Standing { get; set; } //Driver number | point amount
     }
 }
