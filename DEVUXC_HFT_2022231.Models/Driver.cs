@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Models
@@ -25,6 +26,7 @@ namespace DEVUXC_HFT_2022231.Models
             Country = country;
             Points = points;
             WorldChampTitles = worldChampTitles;
+            Races = new HashSet<Race>();
         }
 
         [Key]
@@ -43,5 +45,7 @@ namespace DEVUXC_HFT_2022231.Models
         public DateTime Birth { get; set; }
         public int WorldChampTitles { get; set; }
 
+        [JsonIgnore]
+        public virtual ICollection<Race> Races { get; set; }
     }
 }
