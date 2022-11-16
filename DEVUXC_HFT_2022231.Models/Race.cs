@@ -16,29 +16,38 @@ namespace DEVUXC_HFT_2022231.Models
         public override int Id { get; set; }
         [NotMapped]
         public virtual ICollection<Driver> Drivers { get; set; }
-        public int[] RaceResult { get; set; }
         public DateTime RaceDate { get; set; }
         public string Country { get; set; }
         [ForeignKey(nameof(Season))]
         public int SeasonId { get; set; }
         [NotMapped]
         public virtual Season Season { get; set; }
-        public Race()
+        public virtual Circuit Circuit { get; set; }
+        [ForeignKey(nameof(Circuit))]
+        public int CircuitId { get; set; }
+        
+        public Race(ICollection<Driver> drivers, DateTime raceDate, string country, int seasonId, 
+            Season season, int id = default)
         {
-            this.Drivers = new HashSet<Driver>();
-        }
-
-        public Race(int id, ICollection<Driver> drivers,
-            int[] raceResult, DateTime raceDate, string country, int seasonId, 
-            Season season)
-        {
-            Id = id;
+            if (id == default)
+            {
+                id = IdGenerator(this);
+            }
+            else
+            {
+                Id = id;
+            }
             Drivers = drivers;
-            RaceResult = raceResult;
             RaceDate = raceDate;
             Country = country;
             SeasonId = seasonId;
             Season = season;
+            this.Drivers = new HashSet<Driver>();
         }
+        public Race()
+        {
+
+        }
+        
     }
 }

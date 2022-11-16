@@ -12,7 +12,7 @@ namespace DEVUXC_HFT_2022231.Models
     [Table("drivers")]
     public class Driver : Entity
     {
-        public Driver(int id = 0, string name = "", int driverNumber =  0, string country = "",
+        public Driver(int id = default, string name = "", int driverNumber =  0, string country = "",
                int points = 0,  int worldChampTitles = 0)
         {
             if (id == 0)
@@ -42,6 +42,5 @@ namespace DEVUXC_HFT_2022231.Models
         [Required]
         public DateTime Birth { get; set; }
         public int WorldChampTitles { get; set; }
-
     }
 }

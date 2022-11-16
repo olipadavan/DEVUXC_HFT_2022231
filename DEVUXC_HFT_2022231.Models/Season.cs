@@ -16,13 +16,28 @@ namespace DEVUXC_HFT_2022231.Models
             SeasonYear = seasonYear;
             Races = new HashSet<Race>();
             Drivers = new HashSet<Driver>();
-            Standing = new double[Drivers.Count, 2];
+            Standing = new List<Point>();
+            Entity.staticSeasonId++;
         }
 
         [Key]
         public int SeasonYear { get; set; }
         public virtual ICollection<Race> Races { get; set; }
         public ICollection<Driver> Drivers { get; set; }
-        public double[,] Standing { get; set; } //Driver number | point amount
+        public List<Point> Standing { get; set; } //Driver number | point amount
+
+    }
+    
+    public class Point
+    {
+        public Point(int driverNumber, int points)
+        {
+            DriverNumber = driverNumber;
+            this.points = points;
+        }
+
+        public int DriverNumber { get; set; }
+        public int points { get; set; }
+        public int[] availablePoints = { 25, 18, 15, 12, 8, 6, 4, 2, 1 };
     }
 }

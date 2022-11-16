@@ -14,10 +14,11 @@ namespace DEVUXC_HFT_2022231.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int Id { get; set; }
-        private static int staticDriverId = 0;
-        private static int staticRaceId = 0;
-        private static int staticSeasonId = 0;
-        public DateTime dt = new DateTime();
+        protected static int staticDriverId = 0;
+        protected static int staticRaceId = 0;
+        protected static int staticSeasonId = 0;
+        protected static int staticCourseId = 0;
+        protected DateTime dt = new DateTime();
         public static int IdGenerator(object thisobj)
         {
             if (thisobj is Season)
@@ -31,6 +32,10 @@ namespace DEVUXC_HFT_2022231.Models
             else if (thisobj is Race)
             {
                 return staticRaceId++;
+            }
+            else if (thisobj is Circuit)
+            {
+                return staticCourseId++;
             }
             else
             {
