@@ -11,5 +11,6 @@ namespace DEVUXC_HFT_2022231.Repository.Interfaces
 {
     public interface ISeasonRepository : IRepository<Season>
     {
+        IEnumerable<Point> GetPoint(int id);
     }
 }

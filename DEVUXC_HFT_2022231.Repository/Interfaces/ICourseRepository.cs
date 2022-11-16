@@ -1,4 +1,5 @@
 ﻿using DEVUXC_HFT_2022231.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Repository.Interfaces
 {
-    public interface IDriverRepository : IRepository<Driver>
+    public interface ICourseRepository : IRepository<Circuit>
     {
-        void UpdateDriverNumber(int id, int NewNumber);
+        void tackChange(double newlength);
     }
 }
