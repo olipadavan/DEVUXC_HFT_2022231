@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Logic.Intefaces
 {
-    public interface ILogic<T>
+    public interface IRaceLogic<T>
     {
         void Create(T item);
         void Delete(int item);
