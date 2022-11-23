@@ -118,7 +118,7 @@ namespace DEVUXC_HFT_2022231.Repository
             for (int i = 0; i < d.Length; i++)
             {
                 s2022.Drivers.Add(d[i]);
-                s2022.Standing.Add(new Point(d[i].DriverNumber, 0));
+                s2022.Standing[i] = (new Point(d[i].DriverNumber, 0));
             }
 
             //fill races with drivers
