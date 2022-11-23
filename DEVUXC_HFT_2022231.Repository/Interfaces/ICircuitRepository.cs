@@ -11,7 +11,7 @@ namespace DEVUXC_HFT_2022231.Repository.Interfaces
 {
     public interface ICircuitRepository : IRepository<Circuit>
     {
-        void trackChange(double newLength);
-        Double GetTrackLenght(int circuitId);
+        void trackChange(int CircuitId, double newLength);
+        IQueryable<double> GetTrackLenght(int circuitId);
     }
 }
