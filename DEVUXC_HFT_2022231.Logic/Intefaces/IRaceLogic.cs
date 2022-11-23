@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Logic.Intefaces
 {
-    public interface IRaceLogic<T>
+    public interface IRaceLogic 
     {
-        void Create(T item);
+        void Create(Race item);
         void Delete(int item);
-        IEnumerable<T> ReadAll();
-        T Read(int id);
-        void Update(T item);
+        IEnumerable<Race> ReadAll();
+        Race Read(int id);
+        void Update(Race item);
+        IQueryable<Driver> GetAllDrivers(int RaceId);
     }
 }
