@@ -1,9 +1,11 @@
 ﻿using DEVUXC_HFT_2022231.Logic.Intefaces;
 using DEVUXC_HFT_2022231.Models;
 using DEVUXC_HFT_2022231.Repository.Interfaces;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +52,12 @@ namespace DEVUXC_HFT_2022231.Logic.Logics
         public IQueryable<Race> GetRaces(int SeasonId, int RaceId)
         {
             return seasonrepo.GetRaces(SeasonId, RaceId);
+        }
+
+        public IQueryable<Circuit> LongestCircuitInTheSeason(int SeasonId)
+        {
+            var longestcircuit = seasonrepo.Read(SeasonId).Races.OrderByDescending(r => r.Circuit.Length).First().Circuit;
+            return longestcircuit;
         }
     }
 }
