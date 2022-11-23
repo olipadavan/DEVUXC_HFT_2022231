@@ -16,7 +16,7 @@ namespace DEVUXC_HFT_2022231.Repository.Repositories
 
         public IQueryable<Driver> GetAllDrivers(int RaceId)
         {
-            return ctx.Races.Where(r => r.Id == RaceId).Select(d => d.Drivers);
+            return (IQueryable<Driver>)ctx.Races.Where(r => r.Id == RaceId).Select(d => d.Drivers);
         }
     }
 }
