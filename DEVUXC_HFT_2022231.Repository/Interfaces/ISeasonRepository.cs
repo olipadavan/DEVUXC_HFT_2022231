@@ -12,6 +12,6 @@ namespace DEVUXC_HFT_2022231.Repository.Interfaces
     public interface ISeasonRepository : IRepository<Season>
     {
         IEnumerable<Point> GetPoint(int SeasonId, int DriverNumber);
-        IEnumerable<Race> GetRaces(int SeasonId, int RaceId);
+        IQueryable<Race> GetRaces(int SeasonId, int RaceId);
     }
 }
