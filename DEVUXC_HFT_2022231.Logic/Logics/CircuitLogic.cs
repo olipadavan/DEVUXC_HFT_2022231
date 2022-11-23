@@ -40,7 +40,7 @@ namespace DEVUXC_HFT_2022231.Logic.Logics
 
         public IEnumerable<Circuit> ReadAll()
         {
-            cirrepo.ReadAll();
+            return cirrepo.ReadAll();
         }
 
         public void trackChange(int CircuitId, double newLength)
