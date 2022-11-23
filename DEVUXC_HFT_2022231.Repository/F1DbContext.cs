@@ -158,6 +158,7 @@ namespace DEVUXC_HFT_2022231.Repository
 
             modelBuilder.Entity<Driver>().HasData(ver, per, sai, lec, nor, ric, ham, rus, oco, alo,
                 vet, str, mag, sch, gas, tsu, bot, zho, lat, hul, alb, dev);
+            modelBuilder.Entity<Circuit>().HasData(cirItaly, cirMonaco, cirCanada, cirHungary, cirGrB);
             modelBuilder.Entity<Race>().HasData(italy, monaco, canada, hungary, grBritain);
             modelBuilder.Entity<Season>().HasData(s2022);
 
