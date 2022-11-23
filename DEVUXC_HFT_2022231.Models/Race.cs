@@ -15,6 +15,7 @@ namespace DEVUXC_HFT_2022231.Models
         [Key]
         public override int Id { get; set; }
         [NotMapped]
+        [MaxLength(20)]
         public virtual ICollection<Driver> Drivers { get; set; }
         public DateTime RaceDate { get; set; }
         public string Country { get; set; }

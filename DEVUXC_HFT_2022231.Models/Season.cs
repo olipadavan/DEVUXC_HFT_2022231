@@ -24,7 +24,7 @@ namespace DEVUXC_HFT_2022231.Models
         public int SeasonYear { get; set; }
         public virtual ICollection<Race> Races { get; set; }
         public ICollection<Driver> Drivers { get; set; }
-        public List<Point> Standing { get; set; } //Driver number | point amount
+        public Point[] Standing { get; set; } //Driver number | point amount
 
     }
     
@@ -38,6 +38,6 @@ namespace DEVUXC_HFT_2022231.Models
 
         public int DriverNumber { get; set; }
         public int points { get; set; }
-        public int[] availablePoints = { 25, 18, 15, 12, 8, 6, 4, 2, 1 };
+        public static int[] availablePoints = { 25, 18, 15, 12, 8, 6, 4, 2, 1 };
     }
 }
