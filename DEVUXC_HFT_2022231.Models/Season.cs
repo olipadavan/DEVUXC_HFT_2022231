@@ -16,7 +16,7 @@ namespace DEVUXC_HFT_2022231.Models
             SeasonYear = seasonYear;
             Races = new HashSet<Race>();
             Drivers = new HashSet<Driver>();
-            Standing = new List<Point>();
+            Standing = new Point[20];
             Entity.staticSeasonId++;
         }
 
