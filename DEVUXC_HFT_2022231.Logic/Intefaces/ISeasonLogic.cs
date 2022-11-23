@@ -7,31 +7,14 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Logic.Intefaces
 {
-    public class ISeasonLogic : ILogic<Season>
+    public interface ISeasonLogic
     {
-        public void Create(Season item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Season Read(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Season> ReadAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Season item)
-        {
-            throw new NotImplementedException();
-        }
+        void Create(Season item);
+        void Delete(int item);
+        IEnumerable<Season> ReadAll();
+        Season Read(int id);
+        void Update(Season item);
+        IEnumerable<Point> GetPoint(int SeasonId, int DriverNumber);
+        IQueryable<Race> GetRaces(int SeasonId, int RaceId);
     }
 }
