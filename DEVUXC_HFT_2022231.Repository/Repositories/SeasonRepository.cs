@@ -22,10 +22,10 @@ namespace DEVUXC_HFT_2022231.Repository.Repositories
             return resoult;
         }
 
-        public IEnumerable<Race> GetRaces(int SeasonId, int RaceId)
+        public IQueryable<Race> GetRaces(int SeasonId, int RaceId)
         {
-            var resoult = ctx.Seasons.Where(s=> s.Id == SeasonId).Select(s => s.Races.Select(r => r.Id == RaceId));
-            return resoult;
+            var resoult = ctx.Seasons.Where(s => s.Id == SeasonId).Select(s => s.Races.Where(r => r.Id == RaceId));
+            return (IQueryable<Race>)resoult;
         }
     }
 }
