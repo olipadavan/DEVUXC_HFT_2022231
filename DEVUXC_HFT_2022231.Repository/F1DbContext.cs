@@ -154,6 +154,17 @@ namespace DEVUXC_HFT_2022231.Repository
                 }
             }
 
+            foreach (var driver in d)
+            {
+                for (int i = 0; i < s2022.Standing.Length; i++)
+                {
+                    if (driver.DriverNumber == s2022.Standing[i].DriverNumber)
+                    {
+                        driver.Points = s2022.Standing[i].points;
+                    }
+                }
+            }
+
 
 
             modelBuilder.Entity<Driver>().HasData(ver, per, sai, lec, nor, ric, ham, rus, oco, alo,

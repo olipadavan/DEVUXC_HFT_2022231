@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Repository.Repositories
 {
-    internal class RaceRepository : Repository<Race>, IRaceRepository
+    public class RaceRepository : Repository<Race>, IRaceRepository
     {
         public RaceRepository(F1DbContext ctx) : base(ctx)
         {
