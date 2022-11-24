@@ -15,7 +15,7 @@ namespace DEVUXC_HFT_2022231.Logic.Intefaces
         Season Read(int id);
         void Update(Season item);
         IEnumerable<Point> GetPoint(int SeasonId, int DriverNumber);
-        IQueryable<Race> GetRaces(int SeasonId, int RaceId);
-        IQueryable<Circuit> LongestCircuitInTheSeason(int SeasonId);
+        IEnumerable<Race> GetRaces(int SeasonId, int RaceId);
+        IEnumerable<Circuit> LongestCircuitInTheSeason(int SeasonId);
     }
 }

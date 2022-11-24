@@ -49,14 +49,15 @@ namespace DEVUXC_HFT_2022231.Logic.Logics
             return seasonrepo.GetPoint(SeasonId, DriverNumber);
         }
 
-        public IQueryable<Race> GetRaces(int SeasonId, int RaceId)
+        public IEnumerable<Race> GetRaces(int SeasonId, int RaceId)
         {
             return seasonrepo.GetRaces(SeasonId, RaceId);
         }
 
-        public IQueryable<Circuit> LongestCircuitInTheSeason(int SeasonId)
+        public IEnumerable<Circuit> LongestCircuitInTheSeason(int SeasonId)
         {
-            var longestcircuit = seasonrepo.Read(SeasonId).Races.OrderByDescending(r => r.Circuit.Length).First().Circuit;
+            var correctSeason = seasonrepo.ReadAll().Where(s => s.Id == SeasonId).FirstOrDefault();
+            var longestcircuit = from race in correctSeason.Races orderby race.Circuit.Length select race.Circuit;
             return longestcircuit;
         }
     }
