@@ -27,27 +27,24 @@ namespace DEVUXC_HFT_2022231.EndPoint
             Configuration = config;
         }
         public IConfiguration Configuration { get; }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<F1DbContext>();
             services.AddTransient<ISeasonRepository, SeasonRepository>();
-            services.AddTransient<IRaceRepository, RaceRepository>();
-            services.AddTransient<ICircuitRepository, CircuitRepository>();
+            //services.AddTransient<IRaceRepository, RaceRepository>();
+            //services.AddTransient<ICircuitRepository, CircuitRepository>();
 
             services.AddTransient<ISeasonLogic, SeasonLogic>();
-            services.AddTransient<IRaceLogic, RaceLogic>();
-            services.AddTransient<ICircuitLogic, CircuitLogic>();
+            //services.AddTransient<IRaceLogic, RaceLogic>();
+            //services.AddTransient<ICircuitLogic, CircuitLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarShop.Endpoint", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DEVUXC_HFT_2022231.Endpoint", Version = "v1" });
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
