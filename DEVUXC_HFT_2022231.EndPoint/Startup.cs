@@ -26,17 +26,18 @@ namespace DEVUXC_HFT_2022231.EndPoint
         {
             Configuration = config;
         }
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<F1DbContext>();
             services.AddTransient<ISeasonRepository, SeasonRepository>();
-            //services.AddTransient<IRaceRepository, RaceRepository>();
-            //services.AddTransient<ICircuitRepository, CircuitRepository>();
-
             services.AddTransient<ISeasonLogic, SeasonLogic>();
-            //services.AddTransient<IRaceLogic, RaceLogic>();
-            //services.AddTransient<ICircuitLogic, CircuitLogic>();
+
+            services.AddTransient<IRaceRepository, RaceRepository>();
+            services.AddTransient<IRaceLogic, RaceLogic>();
+
+            services.AddTransient<ICircuitRepository, CircuitRepository>();
+            services.AddTransient<ICircuitLogic, CircuitLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -55,6 +56,9 @@ namespace DEVUXC_HFT_2022231.EndPoint
             }
 
             app.UseRouting();
+
+            app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
