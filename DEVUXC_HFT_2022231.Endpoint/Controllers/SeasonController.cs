@@ -16,7 +16,7 @@ namespace DEVUXC_HFT_2022231.EndPoint.Controllers
             this.sl = sl;
         }
 
-
+        [HttpGet]
         public IEnumerable<Season> ReadAll()
         {
             return sl.ReadAll();
