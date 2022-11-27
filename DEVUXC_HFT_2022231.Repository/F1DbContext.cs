@@ -1,4 +1,5 @@
-﻿using DEVUXC_HFT_2022231.Models;
+﻿using Castle.Core.Internal;
+using DEVUXC_HFT_2022231.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32.SafeHandles;
 using System;
@@ -32,6 +33,7 @@ namespace DEVUXC_HFT_2022231.Repository
             {
                 optionsBuilder
                     .UseInMemoryDatabase("F1db")
+                    .EnableSensitiveDataLogging()
                     .UseLazyLoadingProxies();
             }
         }
@@ -46,8 +48,14 @@ namespace DEVUXC_HFT_2022231.Repository
             });
             modelBuilder.Entity<Race>(entity =>
             {
-                entity.HasOne<Circuit>(race => race.Circuit)
+                entity.HasOne(race => race.Circuit)
                     .WithOne(cir => cir.Race)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+            modelBuilder.Entity<Circuit>(entity =>
+            {
+                entity.HasOne(circuit => circuit.Race)
+                    .WithOne(race => race.Circuit)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
@@ -96,26 +104,21 @@ namespace DEVUXC_HFT_2022231.Repository
             r.Add(italy);
             r.Add(monaco);
 
-            Circuit cirItaly = new Circuit() { Id = 1, Name = "Autodromo Enzo e Dino Ferrari", Length = 4.909, Laps = 63, Race = italy, RaceId = italy.Id};
-            Circuit cirMonaco = new Circuit() { Id = 2, Name = "Circuit de Monaco", Length = 3.337,Laps = 78, Race = monaco, RaceId = monaco.Id};
-            Circuit cirCanada = new Circuit() { Id = 3, Name = "Circuit Gilles-Villeneuve", Length = 4.361, Laps = 70, Race = canada, RaceId = canada.Id};
-            Circuit cirHungary = new Circuit() { Id = 4, Name = "Hungaroring", Length = 4.381, Laps = 70, Race = hungary, RaceId = hungary.Id};
-            Circuit cirGrB = new Circuit() { Id = 5, Name = "Silverstone Circuit", Length = 5.891, Laps = 52, Race = grBritain, RaceId = grBritain.Id};
+            Circuit cirItaly = new Circuit() { Id = 1, Name = "Autodromo Enzo e Dino Ferrari", Length = 4.909, Laps = 63, Race = italy, RaceId = italy.Id };
+            Circuit cirMonaco = new Circuit() { Id = 2, Name = "Circuit de Monaco", Length = 3.337,Laps = 78, Race = monaco, RaceId = monaco.Id };
+            Circuit cirCanada = new Circuit() { Id = 3, Name = "Circuit Gilles-Villeneuve", Length = 4.361, Laps = 70, Race = canada, RaceId = canada.Id };
+            Circuit cirHungary = new Circuit() { Id = 4, Name = "Hungaroring", Length = 4.381, Laps = 70, Race = hungary, RaceId = hungary.Id };
+            Circuit cirGrB = new Circuit() { Id = 5, Name = "Silverstone Circuit", Length = 5.891, Laps = 52, Race = grBritain, RaceId = grBritain.Id };
 
             italy.Circuit = cirItaly;
-            italy.CircuitId = cirItaly.Id;
             monaco.Circuit = cirMonaco;
-            monaco.CircuitId = cirMonaco.Id;
             canada.Circuit = cirCanada;
-            canada.CircuitId = cirCanada.Id;
             hungary.Circuit = cirHungary;
-            hungary.CircuitId = cirHungary.Id;
             grBritain.Circuit = cirGrB;
-            grBritain.CircuitId = cirGrB.Id;
 
 
             //generate Standing + add drivers to season
-            for (int i = 0; i < d.Length; i++)
+            for (int i = 0; i < d.Length-1; i++)
             {
                 s2022.Drivers.Add(d[i]);
                 s2022.Standing[i] = (new Point(d[i].DriverNumber, 0));
@@ -148,11 +151,18 @@ namespace DEVUXC_HFT_2022231.Repository
             foreach (var race in s2022.Races)
             {
                 var driverarray = race.Drivers.ToArray();
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < Point.availablePoints.Length-1; i++)
                 {
-                    s2022.Standing[driverarray[i].DriverNumber].points += Point.availablePoints[i]; 
+                    for (int j = 0; j < s2022.Standing.Length-1; j++)
+                    {
+                        if (driverarray[i].DriverNumber == s2022.Standing[j].DriverNumber)
+                        {
+                            s2022.Standing[j].points += Point.availablePoints[i];
+                        }
+                    }
                 }
             }
+
 
             foreach (var driver in d)
             {
@@ -167,8 +177,8 @@ namespace DEVUXC_HFT_2022231.Repository
 
 
 
-            modelBuilder.Entity<Driver>().HasData(ver, per, sai, lec, nor, ric, ham, rus, oco, alo,
-                vet, str, mag, sch, gas, tsu, bot, zho, lat, hul, alb, dev);
+            //modelBuilder.Entity<Driver>().HasData(ver, per, sai, lec, nor, ric, ham, rus, oco, alo,
+            //    vet, str, mag, sch, gas, tsu, bot, zho, lat, hul, alb, dev);
             modelBuilder.Entity<Circuit>().HasData(cirItaly, cirMonaco, cirCanada, cirHungary, cirGrB);
             modelBuilder.Entity<Race>().HasData(italy, monaco, canada, hungary, grBritain);
             modelBuilder.Entity<Season>().HasData(s2022);

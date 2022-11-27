@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Models
@@ -13,18 +14,20 @@ namespace DEVUXC_HFT_2022231.Models
     public class Race : Entity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
         [NotMapped]
         [MaxLength(20)]
         public virtual ICollection<Driver> Drivers { get; set; }
         public DateTime RaceDate { get; set; }
         public string Country { get; set; }
-        [ForeignKey(nameof(Season))]
+        [ForeignKey("SeasonId")]
         public int SeasonId { get; set; }
         [NotMapped]
+        [JsonIgnore]
         public virtual Season Season { get; set; }
         public virtual Circuit Circuit { get; set; }
-        [ForeignKey(nameof(Circuit))]
+        [ForeignKey("CircuitId")]
         public int CircuitId { get; set; }
         
         public Race(ICollection<Driver> drivers, DateTime raceDate, string country, int seasonId, 

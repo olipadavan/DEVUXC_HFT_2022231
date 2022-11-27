@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Models
 {
-    public abstract class Entity
+    public abstract class Entity : IEntity<int>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -49,5 +49,9 @@ namespace DEVUXC_HFT_2022231.Models
             return date;
         }
 
+    }
+    public interface IEntity<TId>
+    {
+        TId Id { get; set; }
     }
 }
