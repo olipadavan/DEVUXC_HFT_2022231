@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DEVUXC_HFT_2022231.Models\DEVUXC_HFT_2022231.Models.csproj" />
+    <ProjectReference Include="..\DEVUXC_HFT_2022231.Repository\DEVUXC_HFT_2022231.Repository.csproj" />
   </ItemGroup>
 
 </Project>
