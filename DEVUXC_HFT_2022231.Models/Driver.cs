@@ -14,10 +14,6 @@ namespace DEVUXC_HFT_2022231.Models
         public Driver(int id = default, string name = "", int driverNumber =  0, string country = "",
                int points = 0,  int worldChampTitles = 0)
         {
-            if (id == 0)
-            {
-                Id = IdGenerator(this);
-            }
             Id = id;
             Name = name;
             DriverNumber = driverNumber;

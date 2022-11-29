@@ -20,9 +20,9 @@ namespace DEVUXC_HFT_2022231.Models
         public int Laps { get; set; }
         [JsonIgnore]
         [NotMapped]
-        public virtual Race Race { get; set; }
-        [ForeignKey(nameof(Race))]
-        public int RaceId { get; set; }
+        public virtual Race RaceWeekend { get; set; }
+        [ForeignKey(nameof(RaceWeekend))]
+        public int RaceWeekendId { get; set; }
         public Circuit()
         {
 

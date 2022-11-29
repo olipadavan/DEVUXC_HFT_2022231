@@ -21,26 +21,20 @@ namespace DEVUXC_HFT_2022231.Models
         public virtual ICollection<Driver> Drivers { get; set; }
         public DateTime RaceDate { get; set; }
         public string Country { get; set; }
-        [ForeignKey("SeasonId")]
+        [ForeignKey(nameof(Season))]
         public int SeasonId { get; set; }
         [NotMapped]
         [JsonIgnore]
         public virtual Season Season { get; set; }
-        public virtual Circuit Circuit { get; set; }
-        [ForeignKey("CircuitId")]
-        public int CircuitId { get; set; }
+        [NotMapped]
+        public virtual Circuit Track { get; set; }
+        [ForeignKey(nameof(Track))]
+        public int TrackId { get; set; }
         
         public Race(ICollection<Driver> drivers, DateTime raceDate, string country, int seasonId, 
             Season season, int id = default)
         {
-            if (id == default)
-            {
-                id = IdGenerator(this);
-            }
-            else
-            {
-                Id = id;
-            }
+            Id = id;
             Drivers = drivers;
             RaceDate = raceDate;
             Country = country;

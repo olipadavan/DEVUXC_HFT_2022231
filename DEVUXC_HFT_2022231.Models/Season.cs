@@ -17,9 +17,9 @@ namespace DEVUXC_HFT_2022231.Models
             Races = new HashSet<Race>();
             Drivers = new HashSet<Driver>();
             Standing = new Point[20];
-            Entity.staticSeasonId++;
         }
-
+        [Key]
+        public override int Id { get; set; }
         public int SeasonYear { get; set; }
         public virtual ICollection<Race> Races { get; set; }
         public virtual ICollection<Driver> Drivers { get; set; }
