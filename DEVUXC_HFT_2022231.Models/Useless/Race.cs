@@ -7,6 +7,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using DEVUXC_HFT_2022231.Models.Useless;
 
 namespace DEVUXC_HFT_2022231.Models
 {
@@ -26,26 +27,6 @@ namespace DEVUXC_HFT_2022231.Models
         [NotMapped]
         [JsonIgnore]
         public virtual Season Season { get; set; }
-        [NotMapped]
-        public virtual Circuit Track { get; set; }
-        [ForeignKey(nameof(Track))]
-        public int TrackId { get; set; }
-        
-        public Race(ICollection<Driver> drivers, DateTime raceDate, string country, int seasonId, 
-            Season season, int id = default)
-        {
-            Id = id;
-            Drivers = drivers;
-            RaceDate = raceDate;
-            Country = country;
-            SeasonId = seasonId;
-            Season = season;
-            this.Drivers = new HashSet<Driver>();
-        }
-        public Race()
-        {
-
-        }
         
     }
 }

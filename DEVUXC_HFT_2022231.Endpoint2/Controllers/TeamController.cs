@@ -7,42 +7,42 @@ namespace DEVUXC_HFT_2022231.Endpoint2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CircuitController : Controller
+    public class TeamController : Controller
     {
-        ICircuitLogic cl;
-        public CircuitController(ICircuitLogic cl)
+        ITeamLogic tl;
+        public TeamController(ITeamLogic tl)
         {
-            this.cl = cl;
+            this.tl = tl;
         }
 
         [HttpGet]
-        public IEnumerable<Circuit> ReadAll()
+        public IEnumerable<Team> ReadAll()
         {
-            return cl.ReadAll();
+            return tl.ReadAll();
         }
 
         [HttpGet("{id}")]
-        public Circuit Read(int id)
+        public Team Read(int id)
         {
-            return cl.Read(id);
+            return tl.Read(id);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            cl.Delete(id);
+            tl.Delete(id);
         }
 
         [HttpPost]
-        public void Post([FromBody] Circuit circuit)
+        public void Post([FromBody] Team race)
         {
-            cl.Create(circuit);
+            tl.Create(race);
         }
 
         [HttpPut]
-        public void Update([FromBody] Circuit circuit)
+        public void Update([FromBody] Team race)
         {
-            cl.Update(circuit);
+            tl.Update(race);
         }
     }
 }

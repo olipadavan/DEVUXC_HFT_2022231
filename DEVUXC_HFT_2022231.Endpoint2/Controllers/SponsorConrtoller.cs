@@ -7,42 +7,43 @@ namespace DEVUXC_HFT_2022231.Endpoint2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RaceController : Controller
+    public class SponsorController : Controller
     {
-        IRaceLogic rl;
-        public RaceController(IRaceLogic rl)
+        ISponsorLogic sl;
+        public SponsorController(ISponsorLogic sl)
         {
-            this.rl = rl;
+            this.sl = sl;
         }
 
         [HttpGet]
-        public IEnumerable<Race> ReadAll()
+        public IEnumerable<Sponsor> ReadAll()
         {
-            return rl.ReadAll();
+            return sl.ReadAll();
         }
 
         [HttpGet("{id}")]
-        public Race Read(int id)
+        public Sponsor Read(int id)
         {
-            return rl.Read(id);
+            return sl.Read(id);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            rl.Delete(id);
+            sl.Delete(id);
         }
 
         [HttpPost]
-        public void Post([FromBody] Race race)
+        public void Post([FromBody] Sponsor circuit)
         {
-            rl.Create(race);
+            sl.Create(circuit);
         }
 
         [HttpPut]
-        public void Update([FromBody] Race race)
+        public void Update([FromBody] Sponsor circuit)
         {
-            rl.Update(race);
+            sl.Update(circuit);
         }
     }
 }
+

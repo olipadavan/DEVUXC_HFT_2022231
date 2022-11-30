@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Internal;
 using DEVUXC_HFT_2022231.Models;
+using DEVUXC_HFT_2022231.Models.Useless;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32.SafeHandles;
 using System;
@@ -14,10 +15,12 @@ namespace DEVUXC_HFT_2022231.Repository
 {
     public class F1DbContext : DbContext
     {
-        Random rnd = new Random();
-        public virtual DbSet<Driver> Drivers { get; set; }
-        public virtual DbSet<Race> Races { get; set; }
+        
+        public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Sponsor> Sponsors { get; set; }
         public virtual DbSet<Season> Seasons { get; set; }
+        
+
         public F1DbContext()
         {
             this.Database.EnsureCreated();
@@ -37,151 +40,73 @@ namespace DEVUXC_HFT_2022231.Repository
                     .UseLazyLoadingProxies();
             }
         }
+
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Season>(entity =>
             {
-                entity.HasMany(season => season.Races)
-                    .WithOne(races => races.Season)
-                    .HasForeignKey(race => race.SeasonId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                entity.HasMany(season => season.Teams)
+                    .WithOne(team => team.Season)
+                    .HasForeignKey(team => team.SeasonId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
-            modelBuilder.Entity<Race>(entity =>
+            
+            modelBuilder.Entity<Team>(entity =>
             {
-                entity.HasOne(race => race.Circuit)
-                    .WithOne(cir => cir.Race)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-            });
-            modelBuilder.Entity<Circuit>(entity =>
-            {
-                entity.HasOne(circuit => circuit.Race)
-                    .WithOne(race => race.Circuit)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                entity.HasMany(team => team.Sponsors)
+                    .WithOne(sponsor => sponsor.Team)
+                    .HasForeignKey(sponsor => sponsor.TeamId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
-            Season s2022 = new Season(2022);
+            Season s2022 = new Season() { Id = 1, SeasonYear = 2022 };
+            Season s2021 = new Season() { Id = 2, SeasonYear = 2021 };
+            Season s2020 = new Season() { Id = 3, SeasonYear = 2020 };
 
-            #region driver declaration
-            Driver ver = new Driver() { Id = 1, Name = "Verstappen", Points = 0, DriverNumber = 1, Country = "ned", Birth = Driver.ToDatetime(1997, 09, 30), WorldChampTitles = 2 };
-            Driver per = new Driver() { Id = 2, Name = "Perez", Points = 0, DriverNumber = 11, Country = "mex", Birth = Driver.ToDatetime(1990, 01, 26) };
-            Driver sai = new Driver() { Id = 3, Name = "Sainz", Points = 0, DriverNumber = 55, Country = "esp", Birth = Driver.ToDatetime(1994, 09, 01) };
-            Driver lec = new Driver() { Id = 4, Name = "Leclerc", Points = 0, DriverNumber = 16, Country = "mon", Birth = Driver.ToDatetime(1997, 10, 16) };
-            Driver nor = new Driver() { Id = 5, Name = "Norris", Points = 0, DriverNumber = 4, Country = "gbr", Birth = Driver.ToDatetime(1999, 11, 13) };
-            Driver ric = new Driver() { Id = 6, Name = "Riccardo", Points = 0, DriverNumber = 3, Country = "aus", Birth = Driver.ToDatetime(1989, 07, 01) };
-            Driver ham = new Driver() { Id = 7, Name = "Hamilton", Points = 0, DriverNumber = 44, Country = "gbr", Birth = Driver.ToDatetime(1985, 01, 07), WorldChampTitles = 7 };
-            Driver rus = new Driver() { Id = 8, Name = "Russel", Points = 0, DriverNumber = 63, Country = "gbr", Birth = Driver.ToDatetime(1998, 02, 15) };
-            Driver oco = new Driver() { Id = 9, Name = "Ocon", Points = 0, DriverNumber = 31, Country = "fra", Birth = Driver.ToDatetime(1996, 09, 17) };
-            Driver alo = new Driver() { Id = 10, Name = "Alonzo", Points = 0, DriverNumber = 14, Country = "esp", Birth = Driver.ToDatetime(1981, 09, 29), WorldChampTitles = 2 };
-            Driver vet = new Driver() { Id = 11, Name = "Vettel", Points = 0, DriverNumber = 5, Country = "ger", Birth = Driver.ToDatetime(1987, 07, 03), WorldChampTitles = 4 };
-            Driver str = new Driver() { Id = 12, Name = "Stroll", Points = 0, DriverNumber = 18, Country = "can", Birth = Driver.ToDatetime(1998, 10, 29) };
-            Driver mag = new Driver() { Id = 13, Name = "Magnussen", Points = 0, DriverNumber = 20, Country = "den", Birth = Driver.ToDatetime(1992, 10, 05) };
-            Driver sch = new Driver() { Id = 14, Name = "Schumacher", Points = 0, DriverNumber = 47, Country = "ger", Birth = Driver.ToDatetime(1999, 03, 22) };
-            Driver gas = new Driver() { Id = 15, Name = "Gasly", Points = 0, DriverNumber = 10, Country = "fra", Birth = Driver.ToDatetime(1996, 02, 07) };
-            Driver tsu = new Driver() { Id = 16, Name = "Tsunoda", Points = 0, DriverNumber = 22, Country = "jpn", Birth = Driver.ToDatetime(2000, 05, 11) };
-            Driver zho = new Driver() { Id = 17, Name = "Zhou", Points = 0, DriverNumber = 24, Country = "chn", Birth = Driver.ToDatetime(1999, 05, 30) };
-            Driver bot = new Driver() { Id = 18, Name = "Bottas", Points = 0, DriverNumber = 77, Country = "fin", Birth = Driver.ToDatetime(1989, 08, 28) };
-            Driver alb = new Driver() { Id = 19, Name = "Albon", Points = 0, DriverNumber = 23, Country = "tha", Birth = Driver.ToDatetime(1996, 03, 23) };
-            Driver lat = new Driver() { Id = 20, Name = "Latifi", Points = 0, DriverNumber = 6, Country = "can", Birth = Driver.ToDatetime(1995, 06, 29) };
-            Driver dev = new Driver() { Id = 21, Name = "De Vires", Points = 0, DriverNumber = 19, Country = "ned", Birth = Driver.ToDatetime(1995, 02, 06) };
-            Driver hul = new Driver() { Id = 22, Name = "Hulkenberg", Points = 0, DriverNumber = 27, Country = "ger", Birth = Driver.ToDatetime(1987, 08, 19) };
+            Driver ver = new Driver() {Name = "Verstappen",DriverNumber = 1 };
+            Driver per = new Driver() {Name = "Perez",DriverNumber = 11};
+            Driver sai = new Driver() {Name = "Sainz", DriverNumber = 55};
+            Driver lec = new Driver() {Name = "Leclerc",  DriverNumber = 16};
+            Driver nor = new Driver() {Name = "Norris",  DriverNumber = 4 };
+            Driver ric = new Driver() {Name = "Riccardo", DriverNumber = 3 };
+            Driver ham = new Driver() {Name = "Hamilton",  DriverNumber = 44 };
+            Driver rus = new Driver() {Name = "Russel", DriverNumber = 63 };
+            
 
-            Driver[] d = new Driver[] { ver,per,lec,sai,nor,ric,ham,rus,oco,alo,
-                vet,str,mag,sch,gas,tsu,zho,bot,lat,dev,hul};
+            Team Redbull = new Team() { Id = 1,Name = "Redbull", Drivers = { ver, per } , SeasonId = s2022.Id};
+            Team Redbull1 = new Team() { Id = 2, Name = "Redbull1", Drivers = { ver, lec }, SeasonId = s2020.Id};
+            Team Ferrari = new Team() { Id = 3, Name = "Ferrari", Drivers = { sai, nor }, SeasonId = s2020.Id};
+            Team Ferrari1 = new Team() { Id = 4, Name = "Ferrari1", Drivers = { sai, lec }, SeasonId = s2021.Id};
+            Team Mercedes = new Team() { Id = 5, Name = "Mercedes", Drivers = { ham, per }, SeasonId = s2022.Id};
+            Team Mercedes1 = new Team() { Id = 6, Name = "Mercedes1", Drivers = { ham, rus }, SeasonId = s2020.Id};
+            Team Mclaren = new Team() { Id = 7, Name = "Mclaren", Drivers = { ric, nor }, SeasonId = s2022.Id};
+            Team Mclaren1 = new Team() { Id = 8, Name = "Mclaren", Drivers = { ric, rus }, SeasonId = s2021.Id};
+            
 
-            #endregion
+            Sponsor Shell = new Sponsor() { Id= 1, Name = "Shell", Money = 800,  TeamId = Ferrari.Id};
+            Sponsor Shell1 = new Sponsor() { Id= 2, Name = "Shell", Money = 1000, TeamId = Ferrari1.Id};
+            Sponsor Snapdragon = new Sponsor() { Id= 3, Name = "Snapdragon", Money = 950, TeamId = Ferrari.Id};
+            Sponsor Snapdragon1 = new Sponsor() { Id= 4, Name = "Snapdragon", Money = 800, TeamId = Ferrari1.Id};
+            Sponsor Petronas = new Sponsor() { Id= 5, Name = "Petronas", Money = 1900,  TeamId = Mercedes.Id};
+            Sponsor Petronas1 = new Sponsor() { Id= 6, Name = "Petronas", Money = 2000, TeamId = Mercedes1.Id};
+            Sponsor Teamviever = new Sponsor() { Id= 7, Name = "Team Viewer", Money = 600, TeamId = Mercedes.Id};
+            Sponsor Teamviever1 = new Sponsor() { Id= 8, Name = "Team Viewer", Money = 1300, TeamId = Mercedes1.Id};
+            Sponsor Honda = new Sponsor() { Id= 9, Name = "Honda", Money = 500, TeamId = Redbull1.Id};
+            Sponsor Honda1 = new Sponsor() { Id= 10, Name = "Honda", Money = 900, TeamId = Redbull.Id};
+            Sponsor Oracle = new Sponsor() { Id= 11, Name = "Oracle", Money = 1700, TeamId = Redbull1.Id};
+            Sponsor Oracle1 = new Sponsor() { Id= 12, Name = "Oracle", Money = 1500, TeamId = Redbull.Id};
+            Sponsor Rolex = new Sponsor() { Id= 13, Name = "Rolex", Money = 1500, TeamId = Mclaren1.Id};
+            Sponsor Rolex1 = new Sponsor() { Id= 14, Name = "Rolex", Money = 1800, TeamId = Mclaren.Id};
+            Sponsor vmware = new Sponsor() { Id= 15, Name = "WMware", Money = 1000,  TeamId = Mclaren1.Id};
+            Sponsor vmware1 = new Sponsor() { Id= 16, Name = "WMware", Money = 1200, TeamId = Mclaren.Id};
 
-            Race italy = new Race() { Id = 1, Drivers = new List<Driver>(), Country = "Italy", RaceDate = Race.ToDatetime(2022, 04, 24), SeasonId = s2022.Id, Season = s2022 };
-            Race monaco = new Race() { Id = 2, Drivers = new List<Driver>(), Country = "Monaco", RaceDate = Race.ToDatetime(2022, 05, 29), SeasonId = s2022.Id, Season = s2022 };
-            Race canada = new Race() { Id = 3, Drivers = new List<Driver>(), Country = "Canada", RaceDate = Race.ToDatetime(2022, 06, 19), SeasonId = s2022.Id, Season = s2022 };
-            Race hungary = new Race() { Id = 4, Drivers = new List<Driver>(), Country = "Hungary", RaceDate = Race.ToDatetime(2022, 07, 31), SeasonId = s2022.Id, Season = s2022 };
-            Race grBritain = new Race() { Id = 5, Drivers = new List<Driver>(), Country = "Great Britain", RaceDate = Race.ToDatetime(2022, 07, 03), SeasonId = s2022.Id, Season = s2022 };
+            
 
-            List<Race> r = new List<Race>();
-
-            r.Add(canada);
-            r.Add(hungary);
-            r.Add(grBritain);
-            r.Add(italy);
-            r.Add(monaco);
-
-            Circuit cirItaly = new Circuit() { Id = 1, Name = "Autodromo Enzo e Dino Ferrari", Length = 4.909, Laps = 63, Race = italy, RaceId = italy.Id };
-            Circuit cirMonaco = new Circuit() { Id = 2, Name = "Circuit de Monaco", Length = 3.337,Laps = 78, Race = monaco, RaceId = monaco.Id };
-            Circuit cirCanada = new Circuit() { Id = 3, Name = "Circuit Gilles-Villeneuve", Length = 4.361, Laps = 70, Race = canada, RaceId = canada.Id };
-            Circuit cirHungary = new Circuit() { Id = 4, Name = "Hungaroring", Length = 4.381, Laps = 70, Race = hungary, RaceId = hungary.Id };
-            Circuit cirGrB = new Circuit() { Id = 5, Name = "Silverstone Circuit", Length = 5.891, Laps = 52, Race = grBritain, RaceId = grBritain.Id };
-
-            italy.Circuit = cirItaly;
-            monaco.Circuit = cirMonaco;
-            canada.Circuit = cirCanada;
-            hungary.Circuit = cirHungary;
-            grBritain.Circuit = cirGrB;
-
-
-            //generate Standing + add drivers to season
-            for (int i = 0; i < d.Length-1; i++)
-            {
-                s2022.Drivers.Add(d[i]);
-                s2022.Standing[i] = (new Point(d[i].DriverNumber, 0));
-            }
-
-            //fill races with drivers
-            foreach (var race in r)
-            {
-                int needmore = 0;
-                while(needmore < 20)
-                {
-                    Driver dr = d[rnd.Next(0, d.Length)];
-                    if (!race.Drivers.Contains(dr))
-                    {
-                        race.Drivers.Add(dr);
-                        needmore++;
-                    }
-                }
-                s2022.Races.Add(race);
-            }
-
-            // add races to seasons
-            foreach (var race in r)
-            {
-                s2022.Races.Add(race);
-            }
-
-            //Add points based on races
-
-            foreach (var race in s2022.Races)
-            {
-                var driverarray = race.Drivers.ToArray();
-                for (int i = 0; i < Point.availablePoints.Length-1; i++)
-                {
-                    for (int j = 0; j < s2022.Standing.Length-1; j++)
-                    {
-                        if (driverarray[i].DriverNumber == s2022.Standing[j].DriverNumber)
-                        {
-                            s2022.Standing[j].points += Point.availablePoints[i];
-                        }
-                    }
-                }
-            }
-
-
-            foreach (var driver in d)
-            {
-                for (int i = 0; i < s2022.Standing.Length; i++)
-                {
-                    if (driver.DriverNumber == s2022.Standing[i].DriverNumber)
-                    {
-                        driver.Points = s2022.Standing[i].points;
-                    }
-                }
-            }
-
-
-
-            //modelBuilder.Entity<Driver>().HasData(ver, per, sai, lec, nor, ric, ham, rus, oco, alo,
-            //    vet, str, mag, sch, gas, tsu, bot, zho, lat, hul, alb, dev);
-            modelBuilder.Entity<Circuit>().HasData(cirItaly, cirMonaco, cirCanada, cirHungary, cirGrB);
-            modelBuilder.Entity<Race>().HasData(italy, monaco, canada, hungary, grBritain);
-            modelBuilder.Entity<Season>().HasData(s2022);
+            
+            modelBuilder.Entity<Season>().HasData(s2021, s2020, s2022);
+            modelBuilder.Entity<Team>().HasData(Redbull, Redbull1, Ferrari, Ferrari1, Mercedes, Mercedes1, Mclaren, Mclaren1);
+            modelBuilder.Entity<Sponsor>().HasData(Shell, Petronas, Snapdragon, Teamviever, Honda, Oracle, Rolex, vmware, Shell1, Petronas1, Snapdragon1, Teamviever1, Honda1, Oracle1, Rolex1, vmware1);
 
         }
     }

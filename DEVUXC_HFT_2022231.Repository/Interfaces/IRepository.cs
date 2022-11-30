@@ -1,4 +1,4 @@
-﻿using DEVUXC_HFT_2022231.Models;
+﻿using DEVUXC_HFT_2022231.Models.Useless;
 using System;
 using System.Collections.Generic;
 using System.Linq;

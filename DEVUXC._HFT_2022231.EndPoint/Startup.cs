@@ -1,12 +1,16 @@
 using DEVUXC_HFT_2022231.Logic.Intefaces;
 using DEVUXC_HFT_2022231.Logic.Logics;
+using DEVUXC_HFT_2022231.Models;
+using DEVUXC_HFT_2022231.Repository;
 using DEVUXC_HFT_2022231.Repository.Interfaces;
 using DEVUXC_HFT_2022231.Repository.Repositories;
-using DEVUXC_HFT_2022231.Repository;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,7 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DEVUXC_HFT_2022231.Endpoint2
+namespace DEVUXC._HFT_2022231.EndPoint
 {
     public class Startup
     {
@@ -33,19 +37,18 @@ namespace DEVUXC_HFT_2022231.Endpoint2
         {
             services.AddSingleton<F1DbContext>();
 
-            services.AddTransient<ISeasonRepository, SeasonRepository>();
-            services.AddTransient<ISeasonLogic, SeasonLogic>();
+            services.AddTransient<IRepository<Sponsor>, SponsorRepository>();
+            services.AddTransient<IRepository<Team>, TeamRepository>();
+            services.AddTransient<IRepository<Season>, SeasonRepository>();
 
-            services.AddTransient<ITeamRepository, TeamRepository>();
-            services.AddTransient<ITeamLogic, TeamLogic>();
-
-            services.AddTransient<ISponsorRepository, SponsorRepository>();
             services.AddTransient<ISponsorLogic, SponsorLogic>();
+            services.AddTransient<ITeamLogic, TeamLogic>();
+            services.AddTransient<ISeasonLogic, SeasonLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DEVUXC_HFT_2022231.Endpoint2", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DEVUXC._HFT_2022231.EndPoint", Version = "v1" });
             });
         }
 
@@ -56,10 +59,15 @@ namespace DEVUXC_HFT_2022231.Endpoint2
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DEVUXC_HFT_2022231.Endpoint2 v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DEVUXC._HFT_2022231.EndPoint v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+            var exception = context.Features.Get<IExceptionHandlerPathFeature>().Error;
+            var resoponse = new { Msg = exception.Message };
+            await context.Response.WriteAsJsonAsync(resoponse);
+            }));
 
             app.UseRouting();
 

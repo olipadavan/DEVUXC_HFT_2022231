@@ -1,5 +1,6 @@
 ﻿using DEVUXC_HFT_2022231.Logic.Intefaces;
 using DEVUXC_HFT_2022231.Models;
+using DEVUXC_HFT_2022231.Models.Useless;
 using DEVUXC_HFT_2022231.Repository.Interfaces;
 using Microsoft.VisualBasic.FileIO;
 using System;
@@ -15,24 +16,54 @@ namespace DEVUXC_HFT_2022231.Logic.Logics
 {
     public class SeasonLogic : ISeasonLogic
     {
-        ISeasonRepository seasonrepo;
-        public SeasonLogic(ISeasonRepository seasonRepository) 
-        { 
+        IRepository<Season> seasonrepo;
+        public SeasonLogic(IRepository<Season> seasonRepository)
+        {
             seasonrepo = seasonRepository;
         }
-        public void Create(Season season)
+
+        public void Create(Season item)
         {
-            seasonrepo.Create(season);
+            seasonrepo.Create(item);
         }
 
-        public void Delete(int id)
+        public void Delete(int item)
         {
-            seasonrepo.Delete(id);
+            seasonrepo.Delete(item);
+        }
+
+        public IEnumerable<Driver> DriversInTeam(int SeasonId, int TeamId)
+        {
+            var a = seasonrepo.ReadAll().Where(s => s.Id == SeasonId).Select(s => s.Teams.Where(t=>t.Id == TeamId)).First();
+            var b = a.Select(d => d.Drivers).First();
+            return b;
+        }
+
+        public IEnumerable<Team> GetTeams(int SeasonId)
+        {
+            var a = (from s in seasonrepo.ReadAll()
+                     where s.Id == SeasonId select s.Teams).FirstOrDefault();
+            var b = seasonrepo.ReadAll().FirstOrDefault(s=> s.Id == SeasonId).Teams;
+
+            return b;
+        }
+
+        public IEnumerable<Team> MostMoney(int SeasonId)
+        {
+            var a = seasonrepo.ReadAll().Where(s => s.Id == SeasonId).Max(s => s.Teams.OrderByDescending(t => t.Sponsors.Sum(s => s.Money)));
+            return a;
+        }
+
+        public IEnumerable<Sponsor> GetSponsors(int SeasonId, int TeamId)
+        {
+            var a = seasonrepo.ReadAll().Where(s => s.Id == SeasonId).Select(s => s.Teams.Where(t => t.Id == TeamId)).First();
+            var b = a.Select(d => d.Sponsors).First();
+            return b;
         }
 
         public Season Read(int id)
         {
-            return seasonrepo.Read(id) ?? throw new ArgumentException("Season with the specified id does not exists.");
+            return seasonrepo.Read(id);       
         }
 
         public IEnumerable<Season> ReadAll()
@@ -40,25 +71,15 @@ namespace DEVUXC_HFT_2022231.Logic.Logics
             return seasonrepo.ReadAll();
         }
 
-        public void Update(Season car)
+        public IEnumerable<Sponsor> RichestSponsor(int SeasonId)
         {
-            seasonrepo.Update(car);
-        }
-        public IEnumerable<Point> GetPoint(int SeasonId, int DriverNumber)
-        {
-            return seasonrepo.GetPoint(SeasonId, DriverNumber);
+            var a = seasonrepo.ReadAll().SelectMany(t => t.Teams).SelectMany(s => s.Sponsors).OrderByDescending(s => s.Money);
+            return a;
         }
 
-        public IEnumerable<Race> GetRaces(int SeasonId, int RaceId)
+        public void Update(Season item)
         {
-            return seasonrepo.GetRaces(SeasonId, RaceId);
-        }
-
-        public IEnumerable<Circuit> LongestCircuitInTheSeason(int SeasonId)
-        {
-            var correctSeason = seasonrepo.ReadAll().Where(s => s.Id == SeasonId).FirstOrDefault();
-            var longestcircuit = from race in correctSeason.Races orderby race.Circuit.Length select race.Circuit;
-            return longestcircuit;
+            seasonrepo.Update(item);
         }
     }
 }

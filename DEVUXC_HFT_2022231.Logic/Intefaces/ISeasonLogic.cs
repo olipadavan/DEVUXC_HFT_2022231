@@ -1,4 +1,5 @@
 ﻿using DEVUXC_HFT_2022231.Models;
+using DEVUXC_HFT_2022231.Models.Useless;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,15 @@ namespace DEVUXC_HFT_2022231.Logic.Intefaces
         IEnumerable<Season> ReadAll();
         Season Read(int id);
         void Update(Season item);
-        IEnumerable<Point> GetPoint(int SeasonId, int DriverNumber);
-        IEnumerable<Race> GetRaces(int SeasonId, int RaceId);
-        IEnumerable<Circuit> LongestCircuitInTheSeason(int SeasonId);
+        //all teams from certain season
+        IEnumerable<Team> GetTeams(int SeasonId);
+        //the team with the most combined sponsor money ---works---
+        IEnumerable<Team> MostMoney(int SeasonId);
+        //drivers from a crertain season and team
+        IEnumerable<Driver> DriversInTeam(int SeasonId, int TeamId);
+        //Number of sponsors from a crertain season and team
+        IEnumerable<Sponsor> GetSponsors(int SeasonId, int TeamId);
+        //the sponsor with the most money
+        IEnumerable<Sponsor> RichestSponsor(int SeasonId);
     }
 }

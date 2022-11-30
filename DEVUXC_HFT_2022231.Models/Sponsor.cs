@@ -6,26 +6,29 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using DEVUXC_HFT_2022231.Models.Useless;
 
 namespace DEVUXC_HFT_2022231.Models
 {
-    [Table("circuits")]
-    public class Circuit : Entity
+    [Table("sponsors")]
+    public class Sponsor : Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
         public string Name { get; set; }
-        public double Length { get; set; }
-        public int Laps { get; set; }
-        [JsonIgnore]
+        public int Money { get; set; }
         [NotMapped]
-        public virtual Race RaceWeekend { get; set; }
-        [ForeignKey(nameof(RaceWeekend))]
-        public int RaceWeekendId { get; set; }
-        public Circuit()
-        {
+        [JsonIgnore]
+        public virtual Team Team { get; set; }
+        [ForeignKey("TeamId")]
+        public int TeamId { get; set; }
 
+        public override bool Equals(Object obj)
+        {
+            var b = obj as Team;
+            if (b.Name == this.Name) { return true; }
+            else { return false; }
         }
     }
 }

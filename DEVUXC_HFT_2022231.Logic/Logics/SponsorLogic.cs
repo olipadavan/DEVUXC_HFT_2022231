@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Logic.Logics
 {
-    public class CircuitLogic : ICircuitLogic
+    public class SponsorLogic : ISponsorLogic
     {
-        ICircuitRepository cirrepo;
-        public CircuitLogic(ICircuitRepository cirrepo)
+        IRepository<Sponsor> cirrepo;
+        public SponsorLogic(IRepository<Sponsor> cirrepo)
         {
             this.cirrepo = cirrepo;
         }
 
-        public void Create(Circuit item)
+        public void Create(Sponsor item)
         {
             cirrepo.Create(item);
         }
@@ -28,27 +28,19 @@ namespace DEVUXC_HFT_2022231.Logic.Logics
             cirrepo.Delete(item);
         }
 
-        public IQueryable<double> GetTrackLenght(int circuitId)
-        {
-            return cirrepo.GetTrackLenght(circuitId) ?? throw new ArgumentException("Circuit with the specified id does not exists.");
-        }
-
-        public Circuit Read(int id)
+        public Sponsor Read(int id)
         {
             return cirrepo.Read(id) ?? throw new ArgumentException("Circuit with the specified id does not exists.");
         }
 
-        public IEnumerable<Circuit> ReadAll()
+        public IEnumerable<Sponsor> ReadAll()
         {
             return cirrepo.ReadAll();
         }
 
-        public void trackChange(int CircuitId, double newLength)
-        {
-            cirrepo.trackChange(CircuitId, newLength);
-        }
+        
 
-        public void Update(Circuit item)
+        public void Update(Sponsor item)
         {
             cirrepo.Update(item);
         }

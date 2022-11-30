@@ -1,4 +1,5 @@
 ﻿using DEVUXC_HFT_2022231.Models;
+using DEVUXC_HFT_2022231.Models.Useless;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,12 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Logic.Intefaces
 {
-    public interface IRaceLogic 
+    public interface ITeamLogic 
     {
-        void Create(Race item);
+        void Create(Team item);
         void Delete(int item);
-        IEnumerable<Race> ReadAll();
-        Race Read(int id);
-        void Update(Race item);
-        IQueryable<Driver> GetAllDrivers(int RaceId);
+        IEnumerable<Team> ReadAll();
+        Team Read(int id);
+        void Update(Team item);
     }
 }

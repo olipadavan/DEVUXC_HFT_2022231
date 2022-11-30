@@ -1,5 +1,6 @@
 ﻿using DEVUXC_HFT_2022231.Logic.Intefaces;
 using DEVUXC_HFT_2022231.Models;
+using DEVUXC_HFT_2022231.Models.Useless;
 using DEVUXC_HFT_2022231.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace DEVUXC_HFT_2022231.Logic.Logics
 {
-    public class RaceLogic : IRaceLogic
+    public class TeamLogic : ITeamLogic
     {
-        IRaceRepository racerepo;
-        public RaceLogic(IRaceRepository racerepo)
+        IRepository<Team> racerepo;
+        public TeamLogic(IRepository<Team> racerepo)
         {
             this.racerepo = racerepo;
         }
 
-        public void Create(Race item)
+        public void Create(Team item)
         {
             racerepo.Create(item);
         }
@@ -27,23 +28,18 @@ namespace DEVUXC_HFT_2022231.Logic.Logics
             racerepo.Delete(item);
         }
 
-        public IQueryable<Driver> GetAllDrivers(int RaceId)
+        public Team Read(int id)
         {
-            return racerepo.GetAllDrivers(RaceId) ?? throw new ArgumentException("Race with the specified id does not exists. So it has no Drivers either.");
-        }
-
-        public Race Read(int id)
-        {
-            return racerepo.Read(id) ?? throw new ArgumentException("Race with the specified id does not exists.");
+            return racerepo.Read(id) ?? throw new ArgumentException("Team with the specified id does not exists.");
 
         }
 
-        public IEnumerable<Race> ReadAll()
+        public IEnumerable<Team> ReadAll()
         {
             return racerepo.ReadAll();
         }
 
-        public void Update(Race item)
+        public void Update(Team item)
         {
             racerepo.Update(item);
         }

@@ -5,44 +5,44 @@ using System.Collections.Generic;
 
 namespace DEVUXC_HFT_2022231.EndPoint.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class RaceController : Controller
+    public class TeamController : Controller
     {
-        IRaceLogic rl;
-        public RaceController(IRaceLogic rl)
+        ITeamLogic tl;
+        public TeamController(ITeamLogic tl)
         {
-            this.rl = rl;
+            this.tl = tl;
         }
 
         [HttpGet]
-        public IEnumerable<Race> ReadAll()
+        public IEnumerable<Team> ReadAll()
         {
-            return rl.ReadAll();
+            return tl.ReadAll();
         }
 
         [HttpGet("{id}")]
-        public Race Read(int id)
+        public Team Read(int id)
         {
-            return rl.Read(id);
+            return tl.Read(id);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            rl.Delete(id);
+            tl.Delete(id);
         }
 
         [HttpPost]
-        public void Post([FromBody] Race race)
+        public void Post([FromBody] Team race)
         {
-            rl.Create(race);
+            tl.Create(race);
         }
 
         [HttpPut]
-        public void Update([FromBody] Race race)
+        public void Update([FromBody] Team race)
         {
-            rl.Update(race);
+            tl.Update(race);
         }
     }
 }

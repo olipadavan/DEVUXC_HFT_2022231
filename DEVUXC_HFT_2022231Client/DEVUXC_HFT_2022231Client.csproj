@@ -16,11 +16,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.0" />
     <PackageReference Include="UnityAutoMoq" Version="2.1.1" />
+	<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.8" />
+    <PackageReference Include="ConsoleMenu-simple" Version="2.4.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DEVUXC_HFT_2022231.Models\DEVUXC_HFT_2022231.Models.csproj" />
-    <ProjectReference Include="..\DEVUXC_HFT_2022231.Repository\DEVUXC_HFT_2022231.Repository.csproj" />
   </ItemGroup>
 
 </Project>
