@@ -3,11 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DEVUXC_GUI_2022232WPFClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:local="clr-namespace:DEVUXC_GUI_2022232WPFClient">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
@@ -15,8 +20,60 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel>
+        <ListBox ItemsSource="{Binding Seasons}" SelectedItem="{Binding SelectedSeason}" Grid.Column="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding SeasonYear}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox ItemsSource="{Binding Sponsors}" SelectedItem="{Binding SelectedSponsor}" Grid.Column="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox ItemsSource="{Binding Teams}" SelectedItem="{Binding SelectedTeam}" Grid.Column="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!--<StackPanel Grid.Column="0">
+            <Button x:Name="Createbtn" Content="Create" Click="Createbtn_Clicked" Margin="5"/>
+            <Button x:Name="Readbtn" Content="Read" Click="Readbtn_Clicked" Margin="5"/>
+            <Button x:Name="ReadAllbtn" Content="Read All" Click="ReadAllbtn_Clicked" Margin="5"/>
+            <Button x:Name="Updatebtn" Content="Update" Click="Updatebtn_Clicked" Margin="5"/>
+            <Button x:Name="Deletebtn" Content="Delete" Click="Deletebtn_Clicked" Margin="5"/>
             
+        </StackPanel>-->
+
+        <StackPanel Grid.Column="3">
+            <Label Content="Name" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedSeason.SeasonYear}" Padding="10" Margin="0,0,0,30" />
+            <Button Content="Create Actor" Command="{Binding CreateSeasonCommand}" Margin="10" Padding="10" />
+            <Button Content="Delete Actor" Command="{Binding DeleteSeasonCommand}" Margin="10" Padding="10" />
+            <Button Content="Update Actor" Command="{Binding UpdateSeasonCommand}" Margin="10" Padding="10" />
+            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Label Content="Name" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedSponsor.Name}" Padding="10" Margin="0,0,0,30" />
+            <Button Content="Create Actor" Command="{Binding CreateSponsorCommand}" Margin="10" Padding="10" />
+            <Button Content="Delete Actor" Command="{Binding DeleteSponsorCommand}" Margin="10" Padding="10" />
+            <Button Content="Update Actor" Command="{Binding UpdateSponsorCommand}" Margin="10" Padding="10" />
+            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Label Content="Name" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedTeam.Name}" Padding="10" Margin="0,0,0,30" />
+            <Button Content="Create Actor" Command="{Binding CreateTeamCommand}" Margin="10" Padding="10" />
+            <Button Content="Delete Actor" Command="{Binding DeleteTeamCommand}" Margin="10" Padding="10" />
+            <Button Content="Update Actor" Command="{Binding UpdateTeamCommand}" Margin="10" Padding="10" />
+            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
         </StackPanel>
     </Grid>
 </Window>

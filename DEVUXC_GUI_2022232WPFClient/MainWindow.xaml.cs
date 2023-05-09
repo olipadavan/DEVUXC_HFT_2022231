@@ -24,5 +24,31 @@ namespace DEVUXC_GUI_2022232WPFClient
         {
             InitializeComponent();
         }
+
+        private void Createbtn_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Readbtn_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ReadAllbtn_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void Deletebtn_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Updatebtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
