@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Newtonsoft.Json.Linq;
-using DEVUXC_GUI_2022232.WPFClient;
 
 namespace DEVUXC_GUI_2022232WPFClient
 {

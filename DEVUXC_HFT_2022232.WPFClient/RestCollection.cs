@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DEVUXC_GUI_2022232WPFClient
+namespace DEVUXC_GUI_2022232.WPFClient
 {
     public class RestService
     {
