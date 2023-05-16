@@ -1,6 +1,6 @@
 ﻿using DEVUXC_GUI_2022232WPFClient;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm;
+using Microsoft.Toolkit.Mvvm;
 using DEVUXC_HFT_2022231.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Input;
 using Newtonsoft.Json.Linq;
 
-namespace DEVUXC_GUI_2022232WPFClient
+namespace DEVUXC_HFT_2022232.WPFClient
 {
     public class MainWindowViewModel : ObservableRecipient
     {
