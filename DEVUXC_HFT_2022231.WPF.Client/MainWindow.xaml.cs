@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DEVUXC_GUI_2022232WPFClient
+namespace DEVUXC_HFT_2022231.WPF.Client
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,32 +23,6 @@ namespace DEVUXC_GUI_2022232WPFClient
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Createbtn_Clicked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Readbtn_Clicked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ReadAllbtn_Clicked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-        private void Deletebtn_Clicked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Updatebtn_Clicked(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

@@ -1,3 +1,4 @@
+using DEVUXC_HFT_2022231.EndPoint;
 using DEVUXC_HFT_2022231.Logic.Intefaces;
 using DEVUXC_HFT_2022231.Logic.Logics;
 using DEVUXC_HFT_2022231.Models;
@@ -45,6 +46,8 @@ namespace DEVUXC._HFT_2022231.EndPoint
             services.AddTransient<ITeamLogic, TeamLogic>();
             services.AddTransient<ISeasonLogic, SeasonLogic>();
 
+            services.AddSignalR();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -76,6 +79,8 @@ namespace DEVUXC._HFT_2022231.EndPoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapHub<SignalRHub>("/hub");
+
             });
         }
     }

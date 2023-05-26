@@ -1,5 +1,4 @@
-﻿using DEVUXC_GUI_2022232WPFClient;
-using Microsoft.Toolkit.Mvvm;
+﻿using DEVUXC_GUI_2022232.WPFClient;
 using Microsoft.Toolkit.Mvvm;
 using DEVUXC_HFT_2022231.Models;
 using System;
@@ -11,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Newtonsoft.Json.Linq;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 
 namespace DEVUXC_HFT_2022232.WPFClient
 {

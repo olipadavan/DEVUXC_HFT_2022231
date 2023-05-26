@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DEVUXC_GUI_2022232WPFClient
+namespace DEVUXC_HFT_2022231.WPF.Client
 {
     /// <summary>
     /// Interaction logic for App.xaml
