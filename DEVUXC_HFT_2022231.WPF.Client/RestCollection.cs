@@ -324,7 +324,7 @@ namespace MovieDbApp.WpfClient
 
         private async Task Init()
         {
-            items = await rest.GetAsync<T>(typeof(T).Name);
+            items = await rest.GetAsync<T>(typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name);
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
@@ -350,11 +350,11 @@ namespace MovieDbApp.WpfClient
         {
             if (hasSignalR)
             {
-                this.rest.PostAsync(item, typeof(T).Name);
+                this.rest.PostAsync(item, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name);
             }
             else
             {
-                this.rest.PostAsync(item, typeof(T).Name).ContinueWith((t) =>
+                this.rest.PostAsync(item, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {
@@ -372,11 +372,11 @@ namespace MovieDbApp.WpfClient
         {
             if (hasSignalR)
             {
-                this.rest.PutAsync(item, typeof(T).Name);
+                this.rest.PutAsync(item, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name);
             }
             else
             {
-                this.rest.PutAsync(item, typeof(T).Name).ContinueWith((t) =>
+                this.rest.PutAsync(item, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {
@@ -393,11 +393,11 @@ namespace MovieDbApp.WpfClient
         {
             if (hasSignalR)
             {
-                this.rest.DeleteAsync(id, typeof(T).Name);
+                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name);
             }
             else
             {
-                this.rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
+                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {

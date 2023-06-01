@@ -76,7 +76,7 @@ namespace DEVUXC._HFT_2022231.EndPoint
             .AllowCredentials()
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .WithOrigins("http://localhost:46297"));
+            .WithOrigins("http://localhost:10101"));
 
             app.UseRouting();
 

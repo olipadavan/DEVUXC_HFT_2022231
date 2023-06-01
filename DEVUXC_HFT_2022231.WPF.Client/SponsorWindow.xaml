@@ -32,7 +32,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Column="0" IsEnabled="True" Grid.Row="1">
-            <Label Content="ID:"/>
+            <Label Content="Name:"/>
             <TextBox x:Name="Input" Text="{Binding SelectedSponsor.Name}" Grid.Column="0"  Grid.Row="1" Background="AliceBlue" ></TextBox>
         </StackPanel>
         <Button x:Name="Create" Content="Create" Command="{Binding CreateSponsorCommand}" Grid.Row="1" Grid.Column="1"></Button>

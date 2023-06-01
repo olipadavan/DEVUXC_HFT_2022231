@@ -10,7 +10,7 @@ setupSignalR();
 
 function setupSignalR() {
     connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:32493/hub")
+        .withUrl("http://localhost:2201/hub")
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
@@ -52,7 +52,7 @@ async function Start() {
     }
 };
 async function getSeasonData() {
-    await fetch('http://localhost:32493/Season/ReadAll')
+    await fetch('http://localhost:2201/Season/ReadAll')
         .then(x => x.json())
         .then(y => {
             seasons = y
@@ -61,7 +61,7 @@ async function getSeasonData() {
         });
 }
 async function getSponsorData() {
-    await fetch('http://localhost:32493/Sponsor')
+    await fetch('http://localhost:2201/Sponsor')
         .then(x => x.json())
         .then(y => {
             sponsors = y
@@ -70,7 +70,7 @@ async function getSponsorData() {
         });
 }
 async function getTeamData() {
-    await fetch('http://localhost:32493/Team')
+    await fetch('http://localhost:2201/Team')
         .then(x => x.json())
         .then(y => {
             teams = y
@@ -111,7 +111,7 @@ function DisplayTeam() {
 }
 
 function removeSeason(id) {
-    fetch('http://localhost:32493/Season/ReadAll/' + id, {
+    fetch('http://localhost:2201/Season/ReadAll/' + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json', },
         body: null
@@ -125,7 +125,7 @@ function removeSeason(id) {
 
 }
 function removeSponsor(id) {
-    fetch('http://localhost:32493/Sponsor/' + id, {
+    fetch('http://localhost:2201/Sponsor/' + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json', },
         body: null
@@ -139,7 +139,7 @@ function removeSponsor(id) {
 
 }
 function removeTeam(id) {
-    fetch('http://localhost:32493/Team/' + id, {
+    fetch('http://localhost:2201/Team/' + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json', },
         body: null
@@ -155,7 +155,7 @@ function removeTeam(id) {
 
 function CreateSeason() {
     let name = document.getElementById('SeasonName').value;
-    fetch('http://localhost:32493/Season/ReadAll', {
+    fetch('http://localhost:2201/Season/ReadAll', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ function CreateSeason() {
 }
 function CreateSponsor() {
     let name = document.getElementById('SponsorName').value;
-    fetch('http://localhost:32493/Sponsor', {
+    fetch('http://localhost:2201/Sponsor', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -199,7 +199,7 @@ function CreateSponsor() {
 }
 function CreateTeam() {
     let name = document.getElementById('TeamName').value;
-    fetch('http://localhost:32493/Team', {
+    fetch('http://localhost:2201/Team', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
