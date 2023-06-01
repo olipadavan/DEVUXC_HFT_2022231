@@ -34,7 +34,7 @@ namespace DEVUXC_HFT_2022231.EndPoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var ToDelete = sl.Read(id);
+            var ToDelete = this.sl.Read(id);
             sl.Delete(id);
             this.hub.Clients.All.SendAsync("SeasonDeleted", ToDelete);
         }

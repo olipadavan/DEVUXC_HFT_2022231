@@ -213,7 +213,7 @@ namespace MovieDbApp.WpfClient
             if (!response.IsSuccessStatusCode)
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                //if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error == null) { throw new ArgumentException(error.Msg); }
                 throw new ArgumentException(error.Msg);
             }
 
@@ -228,7 +228,7 @@ namespace MovieDbApp.WpfClient
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                //if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error == null) { throw new ArgumentException(error.Msg); }
                 throw new ArgumentException(error.Msg);
             }
 
@@ -243,7 +243,7 @@ namespace MovieDbApp.WpfClient
             if (!response.IsSuccessStatusCode)
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                //if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error == null) { throw new ArgumentException(error.Msg); }
                 throw new ArgumentException(error.Msg);
             }
 
