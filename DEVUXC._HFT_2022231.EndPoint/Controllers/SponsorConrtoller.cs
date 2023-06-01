@@ -1,7 +1,9 @@
 ﻿using DEVUXC_HFT_2022231.Logic.Intefaces;
 using DEVUXC_HFT_2022231.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace DEVUXC_HFT_2022231.EndPoint.Controllers
 {
@@ -10,7 +12,8 @@ namespace DEVUXC_HFT_2022231.EndPoint.Controllers
     public class SponsorController : Controller
     {
         ISponsorLogic sl;
-        public SponsorController(ISponsorLogic sl)
+        IHubContext<SignalRHub> hub;
+        public SponsorController(ISponsorLogic sl, IHubContext<SignalRHub> hub)
         {
             this.sl = sl;
         }
@@ -30,19 +33,24 @@ namespace DEVUXC_HFT_2022231.EndPoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            sl.Delete(id);
+            var ToDelete = this.sl.Read(id);
+            this.sl.Delete(id);
+            this.hub.Clients.All.SendAsync("SponsorDeleted", ToDelete);
         }
 
         [HttpPost]
-        public void Post([FromBody] Sponsor circuit)
+        public void Post([FromBody] Sponsor sponsor)
         {
-            sl.Create(circuit);
+            sl.Create(sponsor);
+            this.hub.Clients.All.SendAsync("SponsorCreated", sponsor);
+
         }
 
         [HttpPut]
-        public void Update([FromBody] Sponsor circuit)
+        public void Update([FromBody] Sponsor sponsor)
         {
-            sl.Update(circuit);
+            sl.Update(sponsor);
+            this.hub.Clients.All.SendAsync("SponsorUpdated", sponsor);
         }
     }
 }
