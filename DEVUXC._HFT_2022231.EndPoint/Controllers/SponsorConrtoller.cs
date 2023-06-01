@@ -3,6 +3,7 @@ using DEVUXC_HFT_2022231.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace DEVUXC_HFT_2022231.EndPoint.Controllers
 {
