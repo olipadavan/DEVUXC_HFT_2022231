@@ -9,12 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace DEVUXC_HFT_2022231.WPF.Client
 {
-    public class MainWindowViewModel : ObservableRecipient
+    public class TeamWindowViewModel : ObservableRecipient
     {
         private string errorMessage;
 
@@ -114,8 +113,8 @@ namespace DEVUXC_HFT_2022231.WPF.Client
         public ICommand DeleteTeamCommand { get; set; }
 
         public ICommand UpdateTeamCommand { get; set; }
+        public ICommand SponsorCommand { get; set; }
         public ICommand SeasonCommand { get; set; }
-        public ICommand TeamCommand { get; set; }
         #endregion
 
 
@@ -130,7 +129,7 @@ namespace DEVUXC_HFT_2022231.WPF.Client
         }
 
 
-        public MainWindowViewModel()
+        public TeamWindowViewModel()
         {
             if (!IsInDesignMode)
             {
@@ -146,13 +145,13 @@ namespace DEVUXC_HFT_2022231.WPF.Client
                 Sponsors = new RestCollection<Sponsor>("http://localhost:2201/", "sponsor", "hub");
                 Teams = new RestCollection<Team>("http://localhost:2201/", "team", "hub");
 
+                SponsorCommand = new RelayCommand(() =>
+                {
+                    new SponsorWindow().Show();
+                });
                 SeasonCommand = new RelayCommand(() =>
                 {
                     new MainWindow().Show();
-                });
-                TeamCommand = new RelayCommand(() =>
-                {
-                    new TeamWindow().Show();
                 });
 
 

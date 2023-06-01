@@ -79,7 +79,7 @@ namespace DEVUXC._HFT_2022231.EndPoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //endpoints.MapHub<SignalRHub>("/hub");
+                endpoints.MapHub<SignalRHub>("/hub");
 
             });
         }

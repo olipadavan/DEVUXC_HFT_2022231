@@ -26,11 +26,11 @@ namespace DEVUXC_HFT_2022231.Models
         [JsonIgnore]
         public virtual ICollection<Team> Teams { get; set; }
         
-
         public override bool Equals(Object obj)
         {
             var b = obj as Season;
-            if (b.SeasonYear == this.SeasonYear) { return true; }
+            var response = b != null? b.Id == this.Id : false;
+            if (response) { return true; }
             else { return false; }
         }
     }

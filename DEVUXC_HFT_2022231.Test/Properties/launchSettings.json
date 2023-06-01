@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "DEVUXC_HFT_2022231.Test": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:49941;http://localhost:49942"
+    }
+  }
+}
