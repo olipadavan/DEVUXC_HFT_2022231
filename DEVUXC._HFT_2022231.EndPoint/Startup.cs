@@ -72,6 +72,12 @@ namespace DEVUXC._HFT_2022231.EndPoint
             await context.Response.WriteAsJsonAsync(resoponse);
             }));
 
+            app.UseCors(x => x
+            .AllowCredentials()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins("http://localhost:46297"));
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -80,7 +86,6 @@ namespace DEVUXC._HFT_2022231.EndPoint
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<SignalRHub>("/hub");
-
             });
         }
     }

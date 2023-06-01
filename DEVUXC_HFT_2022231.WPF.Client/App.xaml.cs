@@ -15,8 +15,8 @@ namespace DEVUXC_HFT_2022231.WPF.Client
     {
         public App()
         {
-            //InitializeComponent();
-            //var main = new SeasonWindow();
+            InitializeComponent();
+            //var main = new MainWindow();
             //main.Show();
         }
     }

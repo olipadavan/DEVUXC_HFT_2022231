@@ -114,7 +114,7 @@ namespace DEVUXC_HFT_2022231.WPF.Client
         public ICommand DeleteTeamCommand { get; set; }
 
         public ICommand UpdateTeamCommand { get; set; }
-        public ICommand SeasonCommand { get; set; }
+        public ICommand SponsorCommand { get; set; }
         public ICommand TeamCommand { get; set; }
         #endregion
 
@@ -142,13 +142,13 @@ namespace DEVUXC_HFT_2022231.WPF.Client
                 };
                 SelectedCollection = ChooseCollections.FirstOrDefault();
 
-                Seasons = new RestCollection<Season>("http://localhost:2201/", "season", "hub");
-                Sponsors = new RestCollection<Sponsor>("http://localhost:2201/", "sponsor", "hub");
-                Teams = new RestCollection<Team>("http://localhost:2201/", "team", "hub");
+                Seasons = new RestCollection<Season>("http://localhost:2201/", "Season/ReadAll", "hub");
+                Sponsors = new RestCollection<Sponsor>("http://localhost:2201/", "Sponsor", "hub");
+                Teams = new RestCollection<Team>("http://localhost:2201/", "Team", "hub");
 
-                SeasonCommand = new RelayCommand(() =>
+                SponsorCommand = new RelayCommand(() =>
                 {
-                    new MainWindow().Show();
+                    new SponsorWindow().Show();
                 });
                 TeamCommand = new RelayCommand(() =>
                 {

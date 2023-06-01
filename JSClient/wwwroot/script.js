@@ -10,7 +10,7 @@ setupSignalR();
 
 function setupSignalR() {
     connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:46297/hub")
+        .withUrl("http://localhost:32493/hub")
         .configureLogging(signalR.LogLevel.Information)
         .build();
 

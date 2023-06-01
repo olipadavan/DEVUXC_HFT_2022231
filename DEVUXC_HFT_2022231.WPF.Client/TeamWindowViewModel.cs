@@ -141,9 +141,9 @@ namespace DEVUXC_HFT_2022231.WPF.Client
                 };
                 SelectedCollection = ChooseCollections.FirstOrDefault();
 
-                Seasons = new RestCollection<Season>("http://localhost:2201/", "season", "hub");
-                Sponsors = new RestCollection<Sponsor>("http://localhost:2201/", "sponsor", "hub");
-                Teams = new RestCollection<Team>("http://localhost:2201/", "team", "hub");
+                Seasons = new RestCollection<Season>("http://localhost:2201/", "Season/ReadAll", "hub");
+                Sponsors = new RestCollection<Sponsor>("http://localhost:2201/", "Sponsor", "hub");
+                Teams = new RestCollection<Team>("http://localhost:2201/", "Team", "hub");
 
                 SponsorCommand = new RelayCommand(() =>
                 {

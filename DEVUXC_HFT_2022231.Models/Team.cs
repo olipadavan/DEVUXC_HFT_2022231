@@ -32,7 +32,8 @@ namespace DEVUXC_HFT_2022231.Models
         public override bool Equals(Object obj)
         {
             var b = obj as Team;
-            if (b.Name == this.Name) { return true; }
+            var answer = b != null ? b.Name == this.Name : false;
+            if (answer) { return true; }
             else { return false; }
         }
 

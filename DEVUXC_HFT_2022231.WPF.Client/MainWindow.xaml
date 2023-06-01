@@ -31,11 +31,11 @@
         </ListBox>
         <StackPanel Grid.Column="0" IsEnabled="True" Grid.Row="1">
             <Label Content="ID:"/>
-            <TextBox x:Name="Input" Text="{Binding SelectedSeason.Id}" Grid.Column="0"  Grid.Row="1" Background="AliceBlue" ></TextBox>
+            <TextBox x:Name="Input" Text="{Binding SelectedSeason.SeasonYear}" Grid.Column="0"  Grid.Row="1" Background="AliceBlue" ></TextBox>
         </StackPanel>
-        <Button x:Name="Create" Content="Create" Command="{Binding CreateCommand}" Grid.Row="1" Grid.Column="1"></Button>
-        <Button x:Name="Update" Content="Update" Command="{Binding UpdateCommand}" Grid.Row="1" Grid.Column="2"></Button>
-        <Button x:Name="Delete" Content="Delete" Command="{Binding DeleteCommand}" Grid.Row="1" Grid.Column="3"></Button>
+        <Button x:Name="Create" Content="Create" Command="{Binding CreateSeasonCommand}" Grid.Row="1" Grid.Column="1"></Button>
+        <Button x:Name="Update" Content="Update" Command="{Binding UpdateSeasonCommand}" Grid.Row="1" Grid.Column="2"></Button>
+        <Button x:Name="Delete" Content="Delete" Command="{Binding DeleteSeasonCommand}" Grid.Row="1" Grid.Column="3"></Button>
 
         <Button x:Name="SponsorPage" Content="Sponsors" Command="{Binding SponsorCommand}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"></Button>
         <Button x:Name="TeamPage" Content="Teams" Command="{Binding TeamCommand}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"></Button>
