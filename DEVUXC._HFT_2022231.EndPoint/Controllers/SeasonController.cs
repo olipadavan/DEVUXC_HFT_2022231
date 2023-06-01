@@ -2,6 +2,7 @@
 using DEVUXC_HFT_2022231.Models;
 using DEVUXC_HFT_2022231.Models.Useless;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
 
 namespace DEVUXC_HFT_2022231.EndPoint.Controllers
@@ -11,9 +12,11 @@ namespace DEVUXC_HFT_2022231.EndPoint.Controllers
     public class SeasonController : ControllerBase
     {
         ISeasonLogic sl;
-        public SeasonController(ISeasonLogic sl)
+        IHubContext<SignalRHub> hub;
+        public SeasonController(ISeasonLogic sl, IHubContext<SignalRHub> hub)
         {
             this.sl = sl;
+            this.hub = hub;
         }
 
         [HttpGet]
@@ -31,19 +34,23 @@ namespace DEVUXC_HFT_2022231.EndPoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var ToDelete = sl.Read(id);
             sl.Delete(id);
+            this.hub.Clients.All.SendAsync("SeasonDeleted", ToDelete);
         }
 
         [HttpPost]
         public void Post([FromBody] Season season)
         {
             sl.Create(season);
+            this.hub.Clients.All.SendAsync("SeasonCreated", season);
         }
 
         [HttpPut]
         public void Update([FromBody] Season season)
         {
             sl.Update(season);
+            this.hub.Clients.All.SendAsync("SeasonUpdated", season);
         }
 
         [HttpGet("{SeasonId}")]

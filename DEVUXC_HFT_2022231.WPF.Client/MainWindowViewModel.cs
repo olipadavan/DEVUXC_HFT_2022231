@@ -114,7 +114,7 @@ namespace DEVUXC_HFT_2022231.WPF.Client
 
                 DeleteSeasonCommand = new RelayCommand(() =>
                 {
-                    Seasons.Delete(SelectedSeason.SeasonYear);
+                    Seasons.Delete(SelectedSeason.Id);
                 },
                 () =>
                 {
