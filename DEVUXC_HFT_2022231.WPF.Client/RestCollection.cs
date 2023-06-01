@@ -71,7 +71,8 @@ namespace MovieDbApp.WpfClient
             else
             {
                 var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
             return items;
         }
@@ -87,7 +88,8 @@ namespace MovieDbApp.WpfClient
             else
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
             return items;
         }
@@ -103,7 +105,8 @@ namespace MovieDbApp.WpfClient
             else
             {
                 var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
             return item;
         }
@@ -119,7 +122,8 @@ namespace MovieDbApp.WpfClient
             else
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
             return item;
         }
@@ -135,7 +139,8 @@ namespace MovieDbApp.WpfClient
             else
             {
                 var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
             return item;
         }
@@ -151,7 +156,8 @@ namespace MovieDbApp.WpfClient
             else
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
             return item;
         }
@@ -164,7 +170,8 @@ namespace MovieDbApp.WpfClient
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
             response.EnsureSuccessStatusCode();
         }
@@ -177,7 +184,8 @@ namespace MovieDbApp.WpfClient
             if (!response.IsSuccessStatusCode)
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
             response.EnsureSuccessStatusCode();
         }
@@ -190,7 +198,8 @@ namespace MovieDbApp.WpfClient
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
 
             response.EnsureSuccessStatusCode();
@@ -204,7 +213,8 @@ namespace MovieDbApp.WpfClient
             if (!response.IsSuccessStatusCode)
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
 
             response.EnsureSuccessStatusCode();
@@ -218,7 +228,8 @@ namespace MovieDbApp.WpfClient
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
 
             response.EnsureSuccessStatusCode();
@@ -232,7 +243,8 @@ namespace MovieDbApp.WpfClient
             if (!response.IsSuccessStatusCode)
             {
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                if (error != null) { throw new ArgumentException(error.Msg); }
+                //if (error != null) { throw new ArgumentException(error.Msg); }
+                throw new ArgumentException(error.Msg);
             }
 
             response.EnsureSuccessStatusCode();
@@ -350,7 +362,7 @@ namespace MovieDbApp.WpfClient
         {
             if (hasSignalR)
             {
-                this.rest.PostAsync(item, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name);
+                this.rest.PostAsync(item, typeof(T).Name == "Season" ? "Season/Post" : typeof(T).Name);
             }
             else
             {
@@ -372,11 +384,11 @@ namespace MovieDbApp.WpfClient
         {
             if (hasSignalR)
             {
-                this.rest.PutAsync(item, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name);
+                this.rest.PutAsync(item, typeof(T).Name == "Season" ? "Season/Update" : typeof(T).Name);
             }
             else
             {
-                this.rest.PutAsync(item, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name).ContinueWith((t) =>
+                this.rest.PutAsync(item, typeof(T).Name == "Season" ? "Season/Update" : typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {
@@ -393,11 +405,11 @@ namespace MovieDbApp.WpfClient
         {
             if (hasSignalR)
             {
-                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name);
+                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? $"Season/Delete/{id}" : typeof(T).Name);
             }
             else
             {
-                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name).ContinueWith((t) =>
+                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? $"Season/Delete/{id}" : typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {
