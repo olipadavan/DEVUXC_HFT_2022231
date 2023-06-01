@@ -51,7 +51,6 @@ namespace DEVUXC_HFT_2022231.EndPoint.Controllers
         {
             tl.Update(team);
             this.hub.Clients.All.SendAsync("TeamUpdated", team);
-
         }
     }
 }
