@@ -354,7 +354,7 @@ namespace MovieDbApp.WpfClient
             }
             else
             {
-                this.rest.PostAsync(item, typeof(T).Name == "Season" ? "Season/ReadAll" : typeof(T).Name).ContinueWith((t) =>
+                this.rest.PostAsync(item, typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {
