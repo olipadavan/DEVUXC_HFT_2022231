@@ -44,7 +44,7 @@ namespace DEVUXC_HFT_2022231.WPF.Client
                         TeamId = value.TeamId,
                     };
                     OnPropertyChanged();
-                    (DeleteSeasonCommand as RelayCommand).NotifyCanExecuteChanged();
+                    (DeleteSponsorCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }
