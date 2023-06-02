@@ -48,9 +48,9 @@ namespace DEVUXC_HFT_2022231.Logic.Logics
             return b;
         }
 
-        public IEnumerable<Team> MostMoney(int SeasonId)
+        public Team MostMoney(int SeasonId)
         {
-            var a = seasonrepo.ReadAll().Where(s => s.Id == SeasonId).Max(s => s.Teams.OrderByDescending(t => t.Sponsors.Sum(s => s.Money)));
+            var a = seasonrepo.ReadAll().Where(s => s.Id == SeasonId).Max(s => s.Teams.OrderByDescending(t => t.Sponsors.Sum(s => s.Money))).FirstOrDefault();
             return a;
         }
 
@@ -71,9 +71,9 @@ namespace DEVUXC_HFT_2022231.Logic.Logics
             return seasonrepo.ReadAll();
         }
 
-        public IEnumerable<Sponsor> RichestSponsor(int SeasonId)
+        public Sponsor RichestSponsor(int SeasonId)
         {
-            var a = seasonrepo.ReadAll().SelectMany(t => t.Teams).SelectMany(s => s.Sponsors).OrderByDescending(s => s.Money);
+            var a = seasonrepo.ReadAll().SelectMany(season => season.Teams).SelectMany(t => t.Sponsors).OrderByDescending(s => s.Money).First();
             return a;
         }
 

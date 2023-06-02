@@ -2,6 +2,7 @@
 let Sponsors = [];
 let Teams = [];
 let connection = null;
+let idtoupdate = -1;
 getSeasonData();
 getSponsorData();
 getTeamData();
@@ -21,11 +22,17 @@ function setupSignalR() {
     connection.on("SeasonDeleted", (user, message) => {
         getSeasonData();
     });
+    connection.on("SeasonUpdated", (user, message) => {
+        getSeasonData();
+    });
     connection.on("SponsorCreated", (user, message) => {
         getSponsorData();
     });
 
-    connection.on("SsponsorDeleted", (user, message) => {
+    connection.on("SponsorDeleted", (user, message) => {
+        getSponsorData();
+    });
+    connection.on("SponsorUpdated", (user, message) => {
         getSponsorData();
     });
     connection.on("TeamCreated", (user, message) => {
@@ -33,6 +40,9 @@ function setupSignalR() {
     });
 
     connection.on("TeamDeleted", (user, message) => {
+        getTeamData();
+    });
+    connection.on("TeamUpdated", (user, message) => {
         getTeamData();
     });
 
@@ -90,7 +100,8 @@ function DisplaySeason() {
         document.getElementById('resultarea').innerHTML +=
             "<tr><td>" + t.id + "</td><td>"
         + t.seasonYear + "</td><td>" +
-            `<button type="button" onclick="removeSeason(${t.id})">Delete</button>`
+            `<button type="button" onclick="removeSeason(${t.id})">Delete</button>` +
+            `<button type="button" onclick="ShowUpdate(${t.id})">Update</button>`
             + "</td></tr>";
     });
 }
@@ -200,6 +211,28 @@ function createTeam() {
         .then(data => {
             console.log('Success:', data);
             getTeamData();
+        })
+        .catch((error) => { console.error('Error:', error); });
+}
+
+function ShowUpdate(id) {
+    document.getElementById('SeasonYearToUpdate').value = Seasons.find(t => t['id'] == id)['seasonYear'];
+    document.getElementById('updateformdiv').style.display = 'flex';
+    idtoupdate = id;
+}
+function UpdateSeason() {
+    document.getElementById('updateformdiv').style.display = 'none';
+    let year = document.getElementById('SeasonYearToUpdate').value;
+    fetch('http://localhost:2201/Season/Update', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { seasonYear: year, id: idtoupdate })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getSeasonData();
         })
         .catch((error) => { console.error('Error:', error); });
 }

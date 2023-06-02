@@ -18,12 +18,12 @@ namespace DEVUXC_HFT_2022231.Logic.Intefaces
         //all teams from certain season
         IEnumerable<Team> GetTeams(int SeasonId);
         //the team with the most combined sponsor money ---works---
-        IEnumerable<Team> MostMoney(int SeasonId);
+        Team MostMoney(int SeasonId);
         //drivers from a crertain season and team
         IEnumerable<Driver> DriversInTeam(int SeasonId, int TeamId);
         //Number of sponsors from a crertain season and team
         IEnumerable<Sponsor> GetSponsors(int SeasonId, int TeamId);
         //the sponsor with the most money
-        IEnumerable<Sponsor> RichestSponsor(int SeasonId);
+        Sponsor RichestSponsor(int SeasonId);
     }
 }

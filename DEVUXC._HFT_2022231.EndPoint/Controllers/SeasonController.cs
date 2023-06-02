@@ -60,7 +60,7 @@ namespace DEVUXC_HFT_2022231.EndPoint.Controllers
         }
 
         [HttpGet("{SeasonId}")]
-        public IEnumerable<Team> MostMoney(int SeasonId)
+        public Team MostMoney(int SeasonId)
         {
             return sl.MostMoney(SeasonId);
 
@@ -81,7 +81,7 @@ namespace DEVUXC_HFT_2022231.EndPoint.Controllers
         }
 
         [HttpGet("{SeasonId}")]
-        public IEnumerable<Sponsor> RichestSponsor(int SeasonId)
+        public Sponsor RichestSponsor(int SeasonId)
         {
             return sl.RichestSponsor(SeasonId);
 
