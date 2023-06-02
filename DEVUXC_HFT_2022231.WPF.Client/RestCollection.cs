@@ -405,11 +405,11 @@ namespace MovieDbApp.WpfClient
         {
             if (hasSignalR)
             {
-                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? $"Season/Delete/{id}" : typeof(T).Name);
+                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? $"Season/Delete" : typeof(T).Name);
             }
             else
             {
-                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? $"Season/Delete/{id}" : typeof(T).Name).ContinueWith((t) =>
+                this.rest.DeleteAsync(id, typeof(T).Name == "Season" ? $"Season/Delete" : typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {
