@@ -26,8 +26,12 @@ namespace DEVUXC_HFT_2022231.WPF.Client
 
         
         public RestCollection<Season> Seasons { get; set; }
+        //public List<Sponsor> Sponsors { get; set; }
+        //public List<Team> Teams { get; set; }
         
         private Season selectedSeason;
+
+        //public Sponsor RichestSponsor { get; set; }
 
         public Season SelectedSeason
         {
@@ -43,6 +47,10 @@ namespace DEVUXC_HFT_2022231.WPF.Client
                         Teams = value.Teams
                     };
                     OnPropertyChanged();
+                    //if (selectedSeason.Id != 0)
+                    //{
+                    //    ListNoncruds();
+                    //}
                     (DeleteSeasonCommand as RelayCommand).NotifyCanExecuteChanged();
                     (UpdateSeasonCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
@@ -73,6 +81,13 @@ namespace DEVUXC_HFT_2022231.WPF.Client
             }
         }
 
+        //public void ListNoncruds()
+        //{
+        //    Teams = new RestService("http://localhost:2201/").Get<Team>("Season/Teams/" + selectedSeason.Id);
+        //    var response = new RestService("http://localhost:2201/").Get<Sponsor>("/Season/RichestSponsor/" + selectedSeason.Id);
+        //    RichestSponsor = response.First();
+        //}
+
 
         public MainWindowViewModel()
         {
@@ -80,7 +95,7 @@ namespace DEVUXC_HFT_2022231.WPF.Client
             {
                 
                 Seasons = new RestCollection<Season>("http://localhost:2201/", "Season/ReadAll", "hub");
-                
+                                
                 SponsorCommand = new RelayCommand(() =>
                 {
                     new SponsorWindow().Show();

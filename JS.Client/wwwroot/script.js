@@ -1,8 +1,13 @@
 ﻿let Seasons = [];
 let Sponsors = [];
 let Teams = [];
+
 let connection = null;
-let idtoupdate = -1;
+
+let SeasonIdToUpdate = -1;
+let SponsorIdToUpdate = -1;
+let TeamIdToUpdate = -1;
+
 getSeasonData();
 getSponsorData();
 getTeamData();
@@ -101,7 +106,7 @@ function DisplaySeason() {
             "<tr><td>" + t.id + "</td><td>"
         + t.seasonYear + "</td><td>" +
             `<button type="button" onclick="removeSeason(${t.id})">Delete</button>` +
-            `<button type="button" onclick="ShowUpdate(${t.id})">Update</button>`
+            `<button type="button" onclick="ShowSeasonUpdate(${t.id})">Update</button>`
             + "</td></tr>";
     });
 }
@@ -111,7 +116,9 @@ function DisplaySponsor() {
         document.getElementById('resultarea2').innerHTML +=
             "<tr><td>" + t.id + "</td><td>"
             + t.name + "</td><td>" +
-            `<button type="button" onclick="removeSponsor(${t.id})">Delete</button>`
+        `<button type="button" onclick="removeSponsor(${t.id})">Delete</button>` +
+        `<button type="button" onclick="ShowSponsorUpdate(${t.id})">Update</button>`
+
             + "</td></tr>";
     });
 }
@@ -121,7 +128,8 @@ function DisplayTeam() {
         document.getElementById('resultarea3').innerHTML +=
             "<tr><td>" + t.id + "</td><td>"
             + t.name + "</td><td>" +
-            `<button type="button" onclick="removeTeam(${t.id})">Delete</button>`
+            `<button type="button" onclick="removeTeam(${t.id})">Delete</button>` +
+            `<button type="button" onclick="ShowTeamUpdate(${t.id})">Update</button>` 
             + "</td></tr>";
     });
 }
@@ -215,19 +223,61 @@ function createTeam() {
         .catch((error) => { console.error('Error:', error); });
 }
 
-function ShowUpdate(id) {
+function ShowSeasonUpdate(id) {
     document.getElementById('SeasonYearToUpdate').value = Seasons.find(t => t['id'] == id)['seasonYear'];
-    document.getElementById('updateformdiv').style.display = 'flex';
-    idtoupdate = id;
+    document.getElementById('updateSeasonformdiv').style.display = 'flex';
+    SeasonIdToUpdate = id;
+}
+function ShowSponsorUpdate(id) {
+    document.getElementById('SponsorNameToUpdate').value = Sponsors.find(t => t['id'] == id)['name'];
+    document.getElementById('updateSponsorformdiv').style.display = 'flex';
+    SponsorIdToUpdate = id;
+}
+function ShowTeamUpdate(id) {
+    document.getElementById('TeamNameToUpdate').value = Teams.find(t => t['id'] == id)['name'];
+    document.getElementById('updateTeamformdiv').style.display = 'flex';
+    TeamIdToUpdate = id;
 }
 function UpdateSeason() {
-    document.getElementById('updateformdiv').style.display = 'none';
+    document.getElementById('updateSeasonformdiv').style.display = 'none';
     let year = document.getElementById('SeasonYearToUpdate').value;
     fetch('http://localhost:2201/Season/Update', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(
-            { seasonYear: year, id: idtoupdate })
+            { seasonYear: year, id: SeasonIdToUpdate })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getSeasonData();
+        })
+        .catch((error) => { console.error('Error:', error); });
+}
+function UpdateSponsor() {
+    document.getElementById('updateSponsorformdiv').style.display = 'none';
+    let name = document.getElementById('SponsorNameToUpdate').value;
+    fetch('http://localhost:2201/Sponsor', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { name: name, id: SponsorIdToUpdate })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getSeasonData();
+        })
+        .catch((error) => { console.error('Error:', error); });
+}
+function UpdateTeam() {
+    document.getElementById('updateTeamformdiv').style.display = 'none';
+    let name = document.getElementById('TeamNameToUpdate').value;
+    fetch('http://localhost:2201/Team', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { name: name, id: TeamIdToUpdate })
     })
         .then(response => response)
         .then(data => {

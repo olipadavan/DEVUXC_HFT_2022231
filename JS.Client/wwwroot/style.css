@@ -33,7 +33,7 @@ th {
         font-weight: bolder;
     }
     
-#updateformdiv {
+#updateSeasonformdiv {
     border: outset;
     border-color: forestgreen;
     display: none;
@@ -41,12 +41,46 @@ th {
     margin-bottom: 20px;
 }
 
-    #updateformdiv label, button, input {
+    #updateSeasonformdiv label, button, input {
         margin: 10px;
         padding: 7px;
     }
 
-    #updateformdiv label {
+    #updateSeasonformdiv label {
+        font-weight: bolder;
+    }
+
+#updateSponsorformdiv {
+    border: outset;
+    border-color: forestgreen;
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+    #updateSponsorformdiv label, button, input {
+        margin: 10px;
+        padding: 7px;
+    }
+
+    #updateSponsorformdiv label {
+        font-weight: bolder;
+    }
+
+#updateTeamformdiv {
+    border: outset;
+    border-color: forestgreen;
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+    #updateTeamformdiv label, button, input {
+        margin: 10px;
+        padding: 7px;
+    }
+
+    #updateTeamformdiv label {
         font-weight: bolder;
     }
 
