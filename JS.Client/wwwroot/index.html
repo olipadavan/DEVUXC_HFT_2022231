@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>F1 UI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+    <div id="formdiv">
+        <label>Season Year</label>
+        <input type="text" id="seasonyear" />
+        <button type="button" onclick="createSeason()">Add Season</button>
+        <label>Sponsor Name</label>
+        <input type="text" id="sponsorname" />
+        <button type="button" onclick="createSponsor()">Add Sponsor</button>
+        <label>Team Name</label>
+        <input type="text" id="teamname" />
+        <button type="button" onclick="createTeam()">Add Team</button>
+    </div>
+    <h1>Season Catalog</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>SeasonYear</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+    <h1>Sponsor Catalog</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea2">
+        </tbody>
+    </table>
+    <h1>Team Catalog</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea3">
+        </tbody>
+    </table>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

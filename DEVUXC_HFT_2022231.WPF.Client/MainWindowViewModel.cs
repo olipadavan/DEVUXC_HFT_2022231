@@ -44,6 +44,7 @@ namespace DEVUXC_HFT_2022231.WPF.Client
                     };
                     OnPropertyChanged();
                     (DeleteSeasonCommand as RelayCommand).NotifyCanExecuteChanged();
+                    (UpdateSeasonCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }

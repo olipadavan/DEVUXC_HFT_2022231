@@ -45,6 +45,7 @@ namespace DEVUXC_HFT_2022231.WPF.Client
                     };
                     OnPropertyChanged();
                     (DeleteSponsorCommand as RelayCommand).NotifyCanExecuteChanged();
+                    (UpdateSponsorCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }

@@ -42,6 +42,7 @@ namespace DEVUXC_HFT_2022231.WPF.Client
                         Name = value.Name
                     };
                     OnPropertyChanged();
+                    (UpdateTeamCommand as RelayCommand).NotifyCanExecuteChanged();
                     (DeleteTeamCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
